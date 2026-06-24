@@ -1,0 +1,66 @@
+candidate:
+  first_name: Chiara
+  last_name: Segala
+  full_name: Chiara Segala
+  email: chiara.segala@usi.ch
+  phone: ""
+  location: Lugano, Switzerland
+  current_company: USI - Università della Svizzera italiana
+  current_title: Postdoctoral researcher in applied mathematics
+  linkedin: ""
+  github: ""
+  website: ""
+
+files:
+  resume: documents/cv_chiara_segala.pdf
+
+answers:
+  work_authorization: "To be reviewed manually."
+  visa_sponsorship: "To be reviewed manually."
+  notice_period: "To be reviewed manually."
+  salary_expectation: "To be reviewed manually."
+  relocation: "Open to Ticino/Lugano, Zurich, Paris, Northern Italy, Switzerland broadly, and selected European research hubs."
+  cover_note: "Applied mathematics and scientific computing researcher with focus on numerical analysis, optimization/control, multi-agent and mean-field systems, kernel methods, uncertainty quantification, and mathematical finance."
+
+field_aliases:
+  first_name:
+    - first name
+    - firstname
+    - given name
+  last_name:
+    - last name
+    - lastname
+    - family name
+    - surname
+  full_name:
+    - full name
+    - name
+  email:
+    - email
+    - e-mail
+  phone:
+    - phone
+    - mobile
+    - telephone
+  location:
+    - location
+    - city
+    - address
+  linkedin:
+    - linkedin
+    - linked in
+  github:
+    - github
+  website:
+    - website
+    - personal website
+    - homepage
+  resume:
+    - resume
+    - cv
+    - curriculum
+  cover_note:
+    - cover letter
+    - motivation
+    - message
+    - additional information
