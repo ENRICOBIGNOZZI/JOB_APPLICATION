@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import webbrowser
 from pathlib import Path
 
 import click
@@ -8,6 +9,7 @@ from rich.panel import Panel
 from rich.table import Table
 
 from job_agent.applications.prepare import prepare_application
+from job_agent.apply.autofill import autofill_application
 from job_agent.config import load_profile, load_targets
 from job_agent.db import (
     connect,
@@ -171,6 +173,41 @@ def show(db: str, job_id: int) -> None:
     console.print(Panel(body, title=f"Job {job_id}"))
 
 
+@main.command("open-link")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--job-id", required=True, type=int)
+def open_link(db: str, job_id: int) -> None:
+    row = get_job(connect(db), job_id)
+    url = row["url"]
+    console.print(f"Opening: {url}")
+    webbrowser.open(url)
+
+
+@main.command("form-fill")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--job-id", required=True, type=int)
+@click.option("--profile", default="configs/autofill_profile.yaml", show_default=True)
+@click.option("--headless", is_flag=True, default=False)
+@click.option("--no-pause", is_flag=True, default=False)
+def form_fill(db: str, job_id: int, profile: str, headless: bool, no_pause: bool) -> None:
+    row = get_job(connect(db), job_id)
+    results = autofill_application(
+        url=row["url"],
+        profile_path=profile,
+        headless=headless,
+        pause=not no_pause,
+    )
+    table = Table(title="Browser form assistance results")
+    table.add_column("field")
+    table.add_column("ok")
+    table.add_column("value")
+    table.add_column("reason")
+    for result in results:
+        table.add_row(result.field, "yes" if result.ok else "no", result.value_preview, result.reason)
+    console.print(table)
+    console.print("Review the browser manually. This command does not submit the form.")
+
+
 @main.command()
 @click.option("--db", default="jobs.sqlite", show_default=True)
 @click.option("--targets", default="configs/targets.yaml", show_default=True)
@@ -267,6 +304,7 @@ def doctor(profile: str) -> None:
         "configs/targets.yaml": Path("configs/targets.yaml").exists(),
         "configs/profile.yaml": Path(profile).exists(),
         "configs/source_pages.csv": Path("configs/source_pages.csv").exists(),
+        "configs/autofill_profile.yaml": Path("configs/autofill_profile.yaml").exists(),
         "package src/job_agent": Path("src/job_agent").exists(),
         f"local CV PDF: {cv_path}": cv_path.exists(),
     }
