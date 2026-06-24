@@ -1,4 +1,6 @@
 company,title,location,url,description,source
-Example Quant Fund,Quant Researcher,Zurich,https://example.com/job-1,"Alpha research, portfolio construction, statistics, Python, time series.",manual
-Example Science Company,Research Scientist Scientific Computing,Paris,https://example.com/job-2,"Scientific computing, numerical analysis, simulation, optimization, Python.",manual
-Example Industrial AI Company,Optimization and Control Engineer,Ticino,https://example.com/job-3,"Optimization, control systems, model predictive control, distributed systems.",manual
+Example Scientific Computing Lab,Research Scientist Scientific Computing,Paris,https://example.com/job-1,"Numerical analysis, scientific computing, kernel methods, simulation, high-dimensional systems, Python.",manual
+Example Control Group,Optimization and Control Scientist,Ticino,https://example.com/job-2,"Optimal control, model predictive control, sparse control, robust control, numerical optimization.",manual
+Example AI Research Lab,Machine Learning Researcher Kernel Methods,Zurich,https://example.com/job-3,"Kernel methods, neural networks, large-scale approximation, surrogate modelling, interacting particle systems.",manual
+Example Quant Research Group,Quantitative Researcher Mathematical Finance,Zurich,https://example.com/job-4,"American option pricing, optimal stopping, conditional mean embeddings, stochastic modelling, numerical methods.",manual
+Example Industrial Modelling Team,Multi-Agent Systems Researcher,Milan,https://example.com/job-5,"Multi-agent systems, mean-field models, collective dynamics, uncertainty quantification, simulation.",manual
