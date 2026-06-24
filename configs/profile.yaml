@@ -1,0 +1,24 @@
+name: Enrico Bignozzi
+email: enrico@example.com
+phone: "+41 XXX XXX XXX"
+location: Lugano, Switzerland
+linkedin: ""
+github: "https://github.com/ENRICOBIGNOZZI"
+website: ""
+
+headline: "PhD-level quantitative researcher with background in econometrics, statistics, machine learning, and financial modelling."
+
+core_profile:
+  - Theoretical physics plus econometrics/statistics background.
+  - Quantitative finance, portfolio construction, statistical learning, and time-series modelling.
+  - Python research engineering, backtesting, feature engineering, and model validation.
+  - Interest in quant research, trading, portfolio management, commodities, and machine learning roles.
+
+cv_path: "documents/CV.pdf"
+cover_letter_style: "short, specific, technical, not generic"
+
+standard_answers:
+  work_authorization: "To be completed manually."
+  notice_period: "To be completed manually."
+  salary_expectation: "To be completed manually."
+  relocation: "Open to Switzerland, London, Paris, and selected US roles."
