@@ -30,6 +30,7 @@ from job_agent.sources.page_sources import load_source_pages_csv
 from job_agent.sources.registry import SOURCE_FETCHERS
 
 console = Console()
+ATS_SOURCES = {"greenhouse", "lever"}
 
 
 @click.group()
@@ -51,11 +52,17 @@ def _job_from_row(row) -> Job:
     )
 
 
-def _table_rows(rows, title: str) -> None:
+def _ats_rows(conn, min_score: float | None, limit: int):
+    rows = list_jobs(conn, min_score=min_score, limit=max(limit * 10, 50))
+    return [row for row in rows if row["source"] in ATS_SOURCES][:limit]
+
+
+def _table_rows(rows, title: str, full_url: bool = False) -> None:
     table = Table(title=title)
     for col in ["id", "score", "source", "company", "title", "location", "url"]:
         table.add_column(col)
     for row in rows:
+        url = row["url"] if full_url else row["url"][:42]
         table.add_row(
             str(row["id"]),
             f"{row['score']:.2f}" if row["score"] is not None else "",
@@ -63,9 +70,16 @@ def _table_rows(rows, title: str) -> None:
             row["company"][:18],
             row["title"][:52],
             row["location"][:26],
-            row["url"][:42],
+            url,
         )
     console.print(table)
+
+
+def _first_ats_row(conn, min_score: float | None):
+    rows = _ats_rows(conn, min_score=min_score, limit=1)
+    if not rows:
+        raise click.ClickException("No ATS-ready job found. Run ats-search first or lower --min-score.")
+    return rows[0]
 
 
 @main.command("init")
@@ -102,11 +116,14 @@ def search(db: str, targets: str) -> None:
 @click.option("--db", default="jobs.sqlite", show_default=True)
 @click.option("--targets", default="configs/targets.yaml", show_default=True)
 @click.option("--boards", default="configs/direct_boards.yaml", show_default=True)
-@click.option("--min-score", default=55.0, show_default=True)
-def ats_search(db: str, targets: str, boards: str, min_score: float) -> None:
+@click.option("--min-score", default=35.0, show_default=True)
+@click.option("--limit", default=50, show_default=True)
+@click.option("--full-url", is_flag=True, default=False)
+def ats_search(db: str, targets: str, boards: str, min_score: float, limit: int, full_url: bool) -> None:
     target_cfg = load_targets(targets)
     boards_cfg = load_yaml(boards)
     jobs: list[Job] = []
+    failed: list[str] = []
 
     for board in boards_cfg.get("greenhouse", []) or []:
         try:
@@ -114,7 +131,7 @@ def ats_search(db: str, targets: str, boards: str, min_score: float) -> None:
             jobs.extend(found)
             console.print(f"[green]greenhouse[/green] {board}: {len(found)} jobs")
         except Exception as exc:  # noqa: BLE001
-            console.print(f"[yellow]greenhouse failed for {board}: {exc}[/yellow]")
+            failed.append(f"greenhouse:{board} ({exc})")
 
     for company in boards_cfg.get("lever", []) or []:
         try:
@@ -122,7 +139,7 @@ def ats_search(db: str, targets: str, boards: str, min_score: float) -> None:
             jobs.extend(found)
             console.print(f"[green]lever[/green] {company}: {len(found)} jobs")
         except Exception as exc:  # noqa: BLE001
-            console.print(f"[yellow]lever failed for {company}: {exc}[/yellow]")
+            failed.append(f"lever:{company} ({exc})")
 
     scored = []
     for job in jobs:
@@ -135,22 +152,65 @@ def ats_search(db: str, targets: str, boards: str, min_score: float) -> None:
     conn = connect(db)
     n = upsert_jobs(conn, scored)
     console.print(f"Saved/updated {n} ATS jobs in {db}")
-    rows = list_jobs(conn, min_score=min_score, limit=25)
-    _table_rows(rows, "ATS-ready jobs")
+    if failed:
+        console.print(f"[yellow]Skipped {len(failed)} unavailable board(s). Use a lower-noise boards file if needed.[/yellow]")
+    rows = _ats_rows(conn, min_score=min_score, limit=limit)
+    _table_rows(rows, "ATS-ready jobs", full_url=full_url)
 
 
 @main.command("ats-ready")
 @click.option("--db", default="jobs.sqlite", show_default=True)
-@click.option("--min-score", default=55.0, show_default=True)
-@click.option("--limit", default=25, show_default=True)
-def ats_ready(db: str, min_score: float, limit: int) -> None:
+@click.option("--min-score", default=35.0, show_default=True)
+@click.option("--limit", default=50, show_default=True)
+@click.option("--full-url", is_flag=True, default=False)
+def ats_ready(db: str, min_score: float, limit: int, full_url: bool) -> None:
     conn = connect(db)
-    rows = [
-        row
-        for row in list_jobs(conn, min_score=min_score, limit=limit * 3)
-        if row["source"] in {"greenhouse", "lever"}
-    ][:limit]
-    _table_rows(rows, "ATS-ready jobs")
+    rows = _ats_rows(conn, min_score=min_score, limit=limit)
+    _table_rows(rows, "ATS-ready jobs", full_url=full_url)
+
+
+@main.command("ats-link")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--job-id", required=True, type=int)
+def ats_link(db: str, job_id: int) -> None:
+    row = get_job(connect(db), job_id)
+    console.print(row["url"])
+
+
+@main.command("ats-open-top")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--min-score", default=35.0, show_default=True)
+def ats_open_top(db: str, min_score: float) -> None:
+    row = _first_ats_row(connect(db), min_score=min_score)
+    console.print(f"Opening top ATS job {row['id']}: {row['company']} — {row['title']}")
+    console.print(row["url"])
+    webbrowser.open(row["url"])
+
+
+@main.command("ats-top-fill")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--profile", default="configs/autofill_profile.yaml", show_default=True)
+@click.option("--min-score", default=35.0, show_default=True)
+@click.option("--headless", is_flag=True, default=False)
+@click.option("--no-pause", is_flag=True, default=False)
+def ats_top_fill(db: str, profile: str, min_score: float, headless: bool, no_pause: bool) -> None:
+    row = _first_ats_row(connect(db), min_score=min_score)
+    console.print(f"Opening top ATS job {row['id']}: {row['company']} — {row['title']}")
+    results = autofill_application(
+        url=row["url"],
+        profile_path=profile,
+        headless=headless,
+        pause=not no_pause,
+    )
+    table = Table(title="Browser form assistance results")
+    table.add_column("field")
+    table.add_column("ok")
+    table.add_column("value")
+    table.add_column("reason")
+    for result in results:
+        table.add_row(result.field, "yes" if result.ok else "no", result.value_preview, result.reason)
+    console.print(table)
+    console.print("Review the browser manually. This command does not submit the form.")
 
 
 @main.command("crawl-pages")
