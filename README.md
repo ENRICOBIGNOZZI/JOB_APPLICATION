@@ -2,4 +2,95 @@
 
 Semi-automated job search, ranking, and application-preparation system.
 
-This repository is intentionally **not** an auto-submit bot. It searches supported public job boards, ranks roles, prepares application folders, and keeps a SQLite tracker. Final review and submission stay manual.
+The design is deliberate: this is **not** an auto-submit bot. It searches supported public job boards, scores roles, prepares application folders, and tracks status. Final review and submission stay manual.
+
+## What it does
+
+- Searches Greenhouse and Lever public job boards from configured companies.
+- Imports manual jobs from CSV for custom portals, LinkedIn exports, or jobs found by hand.
+- Scores jobs using role match, location, seniority, finance relevance, ML relevance, and negative filters.
+- Stores jobs and status history in SQLite.
+- Generates one folder per application with:
+  - `job_description.md`
+  - `cover_letter.md`
+  - `application_notes.md`
+  - `answers.md`
+  - `checklist.md`
+- Tracks statuses: `found`, `shortlisted`, `prepared`, `applied`, `rejected`, `interview`, `offer`, `ignored`.
+- Exports ranked jobs to CSV.
+
+## Install
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .[dev]
+```
+
+## Configure
+
+Edit:
+
+```text
+configs/profile.yaml
+configs/targets.yaml
+```
+
+`targets.yaml` controls target companies, role keywords, preferred locations, negative filters, and score weights.
+
+## Commands
+
+```bash
+job-agent init
+job-agent search
+job-agent import-csv path/to/jobs.csv
+job-agent rescore
+job-agent rank --min-score 50
+job-agent show --job-id 1
+job-agent shortlist --job-id 1
+job-agent prepare --job-id 1
+job-agent mark --job-id 1 --status applied --note "Submitted manually on company website"
+job-agent status
+job-agent export --out ranked_jobs.csv
+job-agent doctor
+```
+
+## Typical workflow
+
+```bash
+job-agent search
+job-agent rank --min-score 55
+job-agent show --job-id 12
+job-agent shortlist --job-id 12
+job-agent prepare --job-id 12
+```
+
+Then review the generated folder under:
+
+```text
+applications/<job-id>-<company>-<role>/
+```
+
+Finally submit manually on the company website and update the tracker:
+
+```bash
+job-agent mark --job-id 12 --status applied --note "Submitted manually"
+```
+
+## CSV import format
+
+Minimum columns:
+
+```csv
+company,title,location,url,description
+```
+
+Optional columns:
+
+```csv
+source,date_found,status,score
+```
+
+## Safety rules
+
+No LinkedIn automation. No CAPTCHA bypass. No credential handling. No blind submit. No fake answers. The system is meant to reduce mechanical work, not to spray low-quality applications.
