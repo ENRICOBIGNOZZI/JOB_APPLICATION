@@ -2,11 +2,13 @@
 
 Semi-automated job search, ranking, and application-preparation system.
 
-The design is deliberate: this is **not** an auto-submit bot. It searches supported public job boards, scores roles, prepares application folders, and tracks status. Final review and submission stay manual.
+The design is deliberate: this is **not** an auto-submit bot. It searches supported public job boards, scores roles, prepares application folders, opens saved links, assists with common form fields, and tracks status. Final review stays manual.
 
 ## Current default profile
 
 The default profile in `configs/profile.yaml` is tuned for **Chiara Segala**: applied mathematics, numerical analysis, optimization/control, multi-agent and mean-field systems, kernel methods, uncertainty quantification, scientific computing, machine learning methods, and mathematical finance.
+
+Default scoring now excludes postdoc/postdoctoral roles.
 
 See also:
 
@@ -14,6 +16,7 @@ See also:
 docs/chiara_application_strategy.md
 docs/source_sourcing_playbook.md
 docs/local_runtime_setup.md
+docs/browser_form_assist.md
 ```
 
 ## What it does
@@ -23,6 +26,8 @@ docs/local_runtime_setup.md
 - Imports manual jobs from CSV for custom portals, LinkedIn exports, or jobs found by hand.
 - Scores jobs using role match, location, seniority, thematic relevance, and negative filters.
 - Groups ranked jobs by primary domain with `job-agent domains`.
+- Opens the saved application link with `job-agent open-link`.
+- Helps fill common application-form fields with `job-agent form-fill`.
 - Explains score components with `job-agent explain`.
 - Stores jobs and status history in SQLite.
 - Generates one folder per application with:
@@ -65,6 +70,13 @@ source .venv/bin/activate
 pip install -e .[dev]
 ```
 
+For browser form assist:
+
+```bash
+pip install -e .[browser]
+playwright install chromium
+```
+
 ## Local CV PDF
 
 Compile or copy the CV PDF locally to:
@@ -83,6 +95,7 @@ Edit:
 configs/profile.yaml
 configs/targets.yaml
 configs/source_pages.csv
+configs/autofill_profile.yaml
 ```
 
 `targets.yaml` controls role keywords, preferred locations, negative filters, thematic keyword groups, and score weights.
@@ -98,6 +111,8 @@ job-agent rescore
 job-agent rank --min-score 50
 job-agent domains
 job-agent show --job-id 1
+job-agent open-link --job-id 1
+job-agent form-fill --job-id 1
 job-agent explain --job-id 1
 job-agent shortlist --job-id 1
 job-agent prepare --job-id 1
@@ -121,6 +136,8 @@ job-agent show --job-id 12
 job-agent explain --job-id 12
 job-agent shortlist --job-id 12
 job-agent prepare --job-id 12
+job-agent open-link --job-id 12
+job-agent form-fill --job-id 12
 ```
 
 Then review the generated folder under:
@@ -129,7 +146,7 @@ Then review the generated folder under:
 applications/<job-id>-<company>-<role>/
 ```
 
-Finally submit manually on the company website and update the tracker:
+After manual final submission, update the tracker:
 
 ```bash
 job-agent mark --job-id 12 --status applied --note "Submitted manually"
@@ -157,4 +174,4 @@ examples/manual_jobs_template.csv
 
 ## Safety rules
 
-No LinkedIn automation. No CAPTCHA bypass. No credential handling. No blind submit. No fake answers. The system is meant to reduce mechanical work, not to spray low-quality applications.
+No LinkedIn automation. No CAPTCHA bypass. No credential handling. No blind submit. No fake answers. The browser helper only assists with recognizable fields and stops for human review.
