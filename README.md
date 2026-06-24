@@ -8,7 +8,9 @@ The design is deliberate: this is **not** an auto-submit bot. It searches suppor
 
 - Searches Greenhouse and Lever public job boards from configured companies.
 - Imports manual jobs from CSV for custom portals, LinkedIn exports, or jobs found by hand.
-- Scores jobs using role match, location, seniority, finance relevance, ML relevance, and negative filters.
+- Scores jobs using role match, location, seniority, thematic relevance, and negative filters.
+- Supports finance/quant, ML, life-sciences research, scientist/research, math/physics, numerical analysis, optimization/control, and multi-agent systems targets.
+- Explains score components with `job-agent explain`.
 - Stores jobs and status history in SQLite.
 - Generates one folder per application with:
   - `job_description.md`
@@ -18,6 +20,26 @@ The design is deliberate: this is **not** an auto-submit bot. It searches suppor
   - `checklist.md`
 - Tracks statuses: `found`, `shortlisted`, `prepared`, `applied`, `rejected`, `interview`, `offer`, `ignored`.
 - Exports ranked jobs to CSV.
+
+## Current target areas
+
+The default configuration is tuned for:
+
+- quantitative research, trading, portfolio management, finance, commodities
+- machine learning, statistics, econometrics, time-series modelling
+- scientific research, computational science, life sciences, and research scientist roles
+- mathematics, physics, stochastic modelling, numerical analysis
+- optimization, optimal control, control systems, decision systems
+- large-scale multi-agent systems and distributed AI systems
+
+Preferred regions in the default config:
+
+- Paris / Île-de-France
+- Ticino / Lugano / Bellinzona / Locarno / Mendrisio
+- Zurich / Zürich
+- Northern Italy / Milan / Turin
+- Switzerland more broadly
+- London / selected US roles
 
 ## Install
 
@@ -36,7 +58,7 @@ configs/profile.yaml
 configs/targets.yaml
 ```
 
-`targets.yaml` controls target companies, role keywords, preferred locations, negative filters, and score weights.
+`targets.yaml` controls target companies, role keywords, preferred locations, negative filters, thematic keyword groups, and score weights.
 
 ## Commands
 
@@ -47,6 +69,7 @@ job-agent import-csv path/to/jobs.csv
 job-agent rescore
 job-agent rank --min-score 50
 job-agent show --job-id 1
+job-agent explain --job-id 1
 job-agent shortlist --job-id 1
 job-agent prepare --job-id 1
 job-agent mark --job-id 1 --status applied --note "Submitted manually on company website"
@@ -59,8 +82,10 @@ job-agent doctor
 
 ```bash
 job-agent search
+job-agent rescore
 job-agent rank --min-score 55
 job-agent show --job-id 12
+job-agent explain --job-id 12
 job-agent shortlist --job-id 12
 job-agent prepare --job-id 12
 ```
