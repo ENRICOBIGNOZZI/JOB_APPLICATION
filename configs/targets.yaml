@@ -22,24 +22,160 @@ role_keywords:
     - systematic trader
     - alpha researcher
     - researcher
+    - research scientist
+    - applied scientist
+    - computational scientist
+    - data scientist
     - machine learning researcher
     - ml researcher
+    - scientist
+    - mathematical researcher
+    - numerical analyst
+    - optimization scientist
+    - control scientist
+    - multi-agent systems researcher
     - commodities trader
     - commodity trader
   medium:
-    - data scientist
     - research engineer
+    - scientific software engineer
+    - computational biologist
+    - bioinformatics scientist
+    - pharma scientist
+    - modelling scientist
+    - mathematical modeller
+    - optimization engineer
+    - numerical software engineer
+    - control engineer
+    - robotics researcher
+    - ai researcher
+    - machine learning engineer
+    - software engineer
+    - python developer
     - trading analyst
     - risk analyst
     - investment analyst
-    - software engineer
-    - machine learning engineer
-    - python developer
   weak:
     - analyst
     - associate
     - internship
     - graduate
+    - fellow
+    - consultant
+
+keyword_groups:
+  finance:
+    weight: 16
+    cap: 6
+    keywords:
+      - trading
+      - portfolio
+      - alpha
+      - market making
+      - asset pricing
+      - statistical arbitrage
+      - systematic
+      - futures
+      - fx
+      - crypto
+      - commodities
+      - derivatives
+      - volatility
+      - risk
+      - options
+  machine_learning:
+    weight: 13
+    cap: 5
+    keywords:
+      - machine learning
+      - deep learning
+      - neural network
+      - reinforcement learning
+      - statistics
+      - econometrics
+      - time series
+      - forecasting
+      - python
+      - pytorch
+      - jax
+      - probabilistic modelling
+  science_biology_pharma:
+    weight: 16
+    cap: 6
+    keywords:
+      - pharma
+      - pharmaceutical
+      - biology
+      - computational biology
+      - bioinformatics
+      - systems biology
+      - scientist
+      - research scientist
+      - applied scientist
+      - computational scientist
+      - biotech
+      - life sciences
+      - health technology
+  math_physics:
+    weight: 15
+    cap: 6
+    keywords:
+      - mathematics
+      - mathematical
+      - physics
+      - theoretical physics
+      - applied mathematics
+      - stochastic
+      - probability
+      - statistical modelling
+      - partial differential equations
+      - pde
+      - inverse problems
+      - bayesian
+  numerical_analysis:
+    weight: 15
+    cap: 5
+    keywords:
+      - numerical analysis
+      - numerical methods
+      - scientific computing
+      - computational mathematics
+      - finite element
+      - finite difference
+      - monte carlo
+      - simulation
+      - high performance computing
+      - hpc
+      - numerical linear algebra
+  optimization_control:
+    weight: 15
+    cap: 6
+    keywords:
+      - optimization
+      - optimisation
+      - convex optimization
+      - stochastic optimization
+      - optimal control
+      - control theory
+      - control systems
+      - model predictive control
+      - mpc
+      - operations research
+      - decision systems
+  multi_agent_systems:
+    weight: 14
+    cap: 5
+    keywords:
+      - multi-agent
+      - multi agent
+      - agentic systems
+      - large scale systems
+      - large-scale systems
+      - distributed systems
+      - autonomous agents
+      - ai agents
+      - reinforcement learning
+      - coordination
 
 finance_keywords:
   - trading
@@ -74,13 +210,32 @@ ml_keywords:
 locations:
   preferred:
     - Switzerland
+    - Ticino
+    - Ticini
+    - Lugano
+    - Bellinzona
+    - Locarno
+    - Mendrisio
     - Zurich
     - Zürich
     - Geneva
     - Genève
-    - Lugano
-    - London
+    - Basel
+    - Lausanne
     - Paris
+    - Île-de-France
+    - France
+    - Milan
+    - Milano
+    - Turin
+    - Torino
+    - Lombardy
+    - Lombardia
+    - Piedmont
+    - Piemonte
+    - Northern Italy
+    - Nord Italia
+    - London
     - New York
     - Chicago
     - United States
@@ -95,6 +250,9 @@ seniority:
     - junior
     - associate
     - phd
+    - doctoral
+    - postdoc
+    - postdoctoral
   avoid:
     - senior portfolio manager
     - head of
