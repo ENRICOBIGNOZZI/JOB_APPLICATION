@@ -1,0 +1,13 @@
+No-postdoc filtered run
+
+Top no-postdoc targets:
+1. CEA — Research Scientist in Scientific Computing and Optimization — 88.2
+2. ABB — Research Scientist in Optimization Control and Robotics — 83.76
+3. Google DeepMind — Research Scientist in Machine Learning and Multi-Agent Systems — 82.2
+4. Siemens — Research Scientist in Simulation Optimization and Digital Twin — 79.33
+5. QRT — Quantitative Researcher Mathematical Finance — 76.08
+6. IBM Research Zurich — Research Scientist in AI Optimization and Scientific Computing — 75.84
+7. Google Careers — Research Scientist Applied ML and Optimization — 73.7
+8. Roche — Research Scientist in Computational Modelling and Machine Learning — 73.4
+9. Novartis — Computational Modelling Research Scientist — 73.4
+10. Jane Street — Quantitative Researcher / Trader with Mathematical Finance Focus — 70.43
