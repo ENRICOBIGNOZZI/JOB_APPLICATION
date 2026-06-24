@@ -1,14 +1,17 @@
+# Direct ATS boards. Keep only boards with public Greenhouse/Lever APIs.
+# Failed or custom boards are intentionally not listed here.
 greenhouse:
   - deepmind
-  - qube-rt
   - point72
-  - citadel
-  - twosigma
   - jumptrading
+  - databricks
+  - anthropic
+  - scaleai
+  - stripe
+  - rippling
+  - ramp
+  - brex
+  - plaid
+  - coinbase
 
-lever:
-  - jane-street
-  - hudsonrivertrading
-  - five-rings
-  - optiver
-  - tower-research
+lever: []
