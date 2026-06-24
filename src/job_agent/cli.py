@@ -259,12 +259,16 @@ def export(db: str, out: str) -> None:
 
 
 @main.command()
-def doctor() -> None:
+@click.option("--profile", default="configs/profile.yaml", show_default=True)
+def doctor(profile: str) -> None:
+    profile_cfg = load_profile(profile)
+    cv_path = Path(str(profile_cfg.get("cv_path", "documents/cv_chiara_segala.pdf")))
     checks = {
         "configs/targets.yaml": Path("configs/targets.yaml").exists(),
-        "configs/profile.yaml": Path("configs/profile.yaml").exists(),
+        "configs/profile.yaml": Path(profile).exists(),
         "configs/source_pages.csv": Path("configs/source_pages.csv").exists(),
         "package src/job_agent": Path("src/job_agent").exists(),
+        f"local CV PDF: {cv_path}": cv_path.exists(),
     }
     table = Table(title="Doctor")
     table.add_column("check")
