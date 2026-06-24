@@ -1,21 +1,24 @@
 from __future__ import annotations
 
 
+def _format_item(item: object) -> str:
+    if isinstance(item, dict):
+        return "; ".join(f"{key}: {value}" for key, value in item.items())
+    return str(item)
+
+
 def render_contact_message(job: dict, profile: dict) -> str:
     name = profile.get("name", "")
     headline = profile.get("headline", "")
     cv_path = profile.get("cv_path", "documents/cv_chiara_segala.pdf")
     core = profile.get("core_profile", []) or []
-    top_points = "\n".join(f"- {point}" for point in core[:3])
+    top_points = "\n".join(f"- {_format_item(point)}" for point in core[:3])
 
-    return f"""Subject: Application package draft — {name} — {job['title']}
+    return f"""# Review message draft
 
-Dear Chiara,
-
-I prepared an application package draft for the following role:
-
-Company: {job['company']}
+Candidate: {name}
 Role: {job['title']}
+Company: {job['company']}
 Location: {job['location']}
 URL: {job['url']}
 Score: {job['score']}
@@ -35,8 +38,5 @@ Files to review locally:
 - answers.md
 - checklist.md
 
-Please review the fit, the cover letter, and the standard answers before any manual submission.
-
-Best,
-Enrico
+Review the fit, the cover letter, and the standard answers before any manual submission.
 """
