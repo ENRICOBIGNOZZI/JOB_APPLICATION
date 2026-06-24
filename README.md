@@ -29,6 +29,7 @@ docs/local_runtime_setup.md
   - `job_description.md`
   - `fit_review.md`
   - `cover_letter.md`
+  - `contact_message.txt`
   - `application_notes.md`
   - `answers.md`
   - `checklist.md`
@@ -72,7 +73,7 @@ Compile or copy the CV PDF locally to:
 documents/cv_chiara_segala.pdf
 ```
 
-This path is ignored by git. See `docs/local_runtime_setup.md`.
+This path is ignored by git. `job-agent doctor` checks whether the local file exists. See `docs/local_runtime_setup.md`.
 
 ## Configure
 
@@ -109,6 +110,7 @@ job-agent doctor
 ## Typical workflow
 
 ```bash
+job-agent doctor
 job-agent search
 job-agent crawl-pages
 job-agent import-csv examples/manual_jobs_template.csv
