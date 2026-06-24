@@ -190,15 +190,25 @@ def ats_open_top(db: str, min_score: float) -> None:
 @main.command("ats-top-fill")
 @click.option("--db", default="jobs.sqlite", show_default=True)
 @click.option("--profile", default="configs/autofill_profile.yaml", show_default=True)
+@click.option("--candidate-profile", default="configs/profile.yaml", show_default=True)
 @click.option("--min-score", default=35.0, show_default=True)
 @click.option("--headless", is_flag=True, default=False)
 @click.option("--no-pause", is_flag=True, default=False)
-def ats_top_fill(db: str, profile: str, min_score: float, headless: bool, no_pause: bool) -> None:
+def ats_top_fill(
+    db: str,
+    profile: str,
+    candidate_profile: str,
+    min_score: float,
+    headless: bool,
+    no_pause: bool,
+) -> None:
     row = _first_ats_row(connect(db), min_score=min_score)
     console.print(f"Opening top ATS job {row['id']}: {row['company']} — {row['title']}")
     results = autofill_application(
         url=row["url"],
         profile_path=profile,
+        candidate_profile_path=candidate_profile,
+        job=dict(row),
         headless=headless,
         pause=not no_pause,
     )
@@ -321,13 +331,23 @@ def open_link(db: str, job_id: int) -> None:
 @click.option("--db", default="jobs.sqlite", show_default=True)
 @click.option("--job-id", required=True, type=int)
 @click.option("--profile", default="configs/autofill_profile.yaml", show_default=True)
+@click.option("--candidate-profile", default="configs/profile.yaml", show_default=True)
 @click.option("--headless", is_flag=True, default=False)
 @click.option("--no-pause", is_flag=True, default=False)
-def form_fill(db: str, job_id: int, profile: str, headless: bool, no_pause: bool) -> None:
+def form_fill(
+    db: str,
+    job_id: int,
+    profile: str,
+    candidate_profile: str,
+    headless: bool,
+    no_pause: bool,
+) -> None:
     row = get_job(connect(db), job_id)
     results = autofill_application(
         url=row["url"],
         profile_path=profile,
+        candidate_profile_path=candidate_profile,
+        job=dict(row),
         headless=headless,
         pause=not no_pause,
     )
