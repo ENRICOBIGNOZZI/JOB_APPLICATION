@@ -18,6 +18,7 @@ from job_agent.db import (
     update_status,
     upsert_jobs,
 )
+from job_agent.matching.domain import domain_scores, primary_domain
 from job_agent.matching.score_job import rescore_jobs, score_breakdown, score_job
 from job_agent.models import Job
 from job_agent.sources.registry import SOURCE_FETCHERS
@@ -28,6 +29,20 @@ console = Console()
 @click.group()
 def main() -> None:
     """Semi-automated job discovery and application-preparation CLI."""
+
+
+def _job_from_row(row) -> Job:
+    return Job(
+        company=row["company"],
+        title=row["title"],
+        location=row["location"],
+        url=row["url"],
+        description=row["description"],
+        source=row["source"],
+        date_found=row["date_found"],
+        score=row["score"],
+        status=row["status"],
+    )
 
 
 @main.command("init")
@@ -101,6 +116,30 @@ def rank(db: str, min_score: float | None, status: str | None, limit: int) -> No
     console.print(table)
 
 
+@main.command("domains")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--targets", default="configs/targets.yaml", show_default=True)
+@click.option("--limit", default=50, show_default=True)
+def domains_cmd(db: str, targets: str, limit: int) -> None:
+    cfg = load_targets(targets)
+    rows = list_jobs(connect(db), limit=limit)
+    table = Table(title="Jobs by primary domain")
+    for col in ["id", "score", "domain", "company", "title", "location"]:
+        table.add_column(col)
+    for row in rows:
+        job = _job_from_row(row)
+        primary = primary_domain(score_breakdown(job, cfg))
+        table.add_row(
+            str(row["id"]),
+            f"{row['score']:.2f}" if row["score"] is not None else "",
+            primary.label if primary else "No strong domain",
+            row["company"][:22],
+            row["title"][:55],
+            row["location"][:28],
+        )
+    console.print(table)
+
+
 @main.command()
 @click.option("--db", default="jobs.sqlite", show_default=True)
 @click.option("--job-id", required=True, type=int)
@@ -123,18 +162,9 @@ def show(db: str, job_id: int) -> None:
 def explain(db: str, targets: str, job_id: int) -> None:
     cfg = load_targets(targets)
     row = get_job(connect(db), job_id)
-    job = Job(
-        company=row["company"],
-        title=row["title"],
-        location=row["location"],
-        url=row["url"],
-        description=row["description"],
-        source=row["source"],
-        date_found=row["date_found"],
-        score=row["score"],
-        status=row["status"],
-    )
+    job = _job_from_row(row)
     components = score_breakdown(job, cfg)
+
     table = Table(title=f"Score breakdown: {job.company} — {job.title}")
     table.add_column("component")
     table.add_column("value", justify="right")
@@ -143,6 +173,13 @@ def explain(db: str, targets: str, job_id: int) -> None:
         table.add_row(component.name, f"{component.value:.2f}", component.detail)
     table.add_row("TOTAL", f"{sum(c.value for c in components):.2f}", "")
     console.print(table)
+
+    domain_table = Table(title="Domain fit")
+    domain_table.add_column("domain")
+    domain_table.add_column("score", justify="right")
+    for fit in domain_scores(components):
+        domain_table.add_row(fit.label, f"{fit.score:.2f}")
+    console.print(domain_table)
 
 
 @main.command()
@@ -156,12 +193,18 @@ def shortlist(db: str, job_id: int) -> None:
 @main.command()
 @click.option("--db", default="jobs.sqlite", show_default=True)
 @click.option("--profile", default="configs/profile.yaml", show_default=True)
+@click.option("--targets", default="configs/targets.yaml", show_default=True)
 @click.option("--job-id", required=True, type=int)
 @click.option("--out", default="applications", show_default=True)
-def prepare(db: str, profile: str, job_id: int, out: str) -> None:
+def prepare(db: str, profile: str, targets: str, job_id: int, out: str) -> None:
     conn = connect(db)
     row = get_job(conn, job_id)
-    folder = prepare_application(dict(row), load_profile(profile), output_root=out)
+    folder = prepare_application(
+        dict(row),
+        load_profile(profile),
+        output_root=out,
+        targets=load_targets(targets),
+    )
     update_status(conn, job_id, "prepared", f"Prepared folder: {folder}")
     console.print(f"Prepared application folder: {folder}")
 
