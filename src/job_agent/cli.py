@@ -21,6 +21,8 @@ from job_agent.db import (
 from job_agent.matching.domain import domain_scores, primary_domain
 from job_agent.matching.score_job import rescore_jobs, score_breakdown, score_job
 from job_agent.models import Job
+from job_agent.sources.page_crawler import crawl_source_pages
+from job_agent.sources.page_sources import load_source_pages_csv
 from job_agent.sources.registry import SOURCE_FETCHERS
 
 console = Console()
@@ -73,6 +75,20 @@ def search(db: str, targets: str) -> None:
     conn = connect(db)
     n = upsert_jobs(conn, scored)
     console.print(f"Saved/updated {n} jobs in {db}")
+
+
+@main.command("crawl-pages")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--targets", default="configs/targets.yaml", show_default=True)
+@click.option("--sources", default="configs/source_pages.csv", show_default=True)
+def crawl_pages(db: str, targets: str, sources: str) -> None:
+    cfg = load_targets(targets)
+    pages_cfg = load_source_pages_csv(sources)
+    found = crawl_source_pages(pages_cfg, cfg)
+    scored = [job.with_score(score_job(job, cfg)) for job in found if job.url and job.title]
+    conn = connect(db)
+    n = upsert_jobs(conn, scored)
+    console.print(f"Saved/updated {n} page-crawled jobs in {db}")
 
 
 @main.command("import-csv")
@@ -247,6 +263,7 @@ def doctor() -> None:
     checks = {
         "configs/targets.yaml": Path("configs/targets.yaml").exists(),
         "configs/profile.yaml": Path("configs/profile.yaml").exists(),
+        "configs/source_pages.csv": Path("configs/source_pages.csv").exists(),
         "package src/job_agent": Path("src/job_agent").exists(),
     }
     table = Table(title="Doctor")
