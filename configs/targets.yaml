@@ -17,9 +17,12 @@ role_keywords:
     - research scientist
     - applied scientist
     - computational scientist
+    - scientist
     - numerical analyst
     - scientific computing researcher
     - mathematical modeller
+    - modeling scientist
+    - simulation scientist
     - optimization scientist
     - control scientist
     - optimal control researcher
@@ -33,15 +36,30 @@ role_keywords:
     - mathematical finance researcher
     - machine learning researcher
     - ml researcher
-  medium:
+    - ai researcher
+    - data scientist
+    - computational biologist
+    - bioinformatics scientist
+    - systems biology scientist
+    - computational biology scientist
+    - computational pharmacology scientist
+    - computational medicine scientist
+    - biostatistician
+    - statistician
+    - operations research scientist
     - research engineer
+  medium:
+    - postdoc
+    - postdoctoral
+    - postdoctoral researcher
+    - research associate
+    - research fellow
     - scientific software engineer
     - numerical software engineer
     - optimization engineer
     - control engineer
-    - ai researcher
     - machine learning engineer
-    - data scientist
+    - data engineer
     - computational mathematician
     - simulation engineer
     - modelling scientist
@@ -49,6 +67,7 @@ role_keywords:
     - trading analyst
     - risk analyst
     - investment analyst
+    - lecturer
   weak:
     - analyst
     - associate
@@ -57,7 +76,7 @@ role_keywords:
 
 keyword_groups:
   chiara_core:
-    weight: 22
+    weight: 24
     cap: 7
     keywords:
       - numerical analysis
@@ -90,8 +109,8 @@ keyword_groups:
       - derivatives
       - trading
   machine_learning:
-    weight: 13
-    cap: 5
+    weight: 15
+    cap: 6
     keywords:
       - machine learning
       - deep learning
@@ -105,9 +124,12 @@ keyword_groups:
       - pytorch
       - jax
       - probabilistic modelling
+      - representation learning
+      - foundation models
+      - generative models
   scientific_computing:
-    weight: 16
-    cap: 6
+    weight: 18
+    cap: 7
     keywords:
       - scientific computing
       - computational mathematics
@@ -119,8 +141,10 @@ keyword_groups:
       - hpc
       - numerical linear algebra
       - computational science
+      - modelling and simulation
+      - digital twin
   optimization_control:
-    weight: 17
+    weight: 18
     cap: 7
     keywords:
       - optimization
@@ -137,6 +161,7 @@ keyword_groups:
       - sparse control
       - turnpike control
       - decision systems
+      - operations research
   multi_agent_systems:
     weight: 17
     cap: 6
@@ -154,8 +179,8 @@ keyword_groups:
       - autonomous agents
       - coordination
   math_physics:
-    weight: 14
-    cap: 6
+    weight: 16
+    cap: 7
     keywords:
       - mathematics
       - applied mathematics
@@ -167,9 +192,11 @@ keyword_groups:
       - pde
       - inverse problems
       - bayesian
+      - dynamical systems
+      - kinetic theory
   computational_life_sciences:
-    weight: 8
-    cap: 5
+    weight: 18
+    cap: 7
     keywords:
       - computational biology
       - bioinformatics
@@ -178,6 +205,43 @@ keyword_groups:
       - computational modelling
       - mathematical modelling
       - quantitative modelling
+      - computational medicine
+      - computational pharmacology
+      - pharmacometrics
+      - drug discovery
+      - genomics
+      - single-cell
+      - omics
+      - epidemiology
+      - biomedical data science
+  statistics_data_science:
+    weight: 13
+    cap: 6
+    keywords:
+      - statistics
+      - statistical learning
+      - biostatistics
+      - data science
+      - causal inference
+      - bayesian statistics
+      - time series
+      - stochastic modelling
+      - probabilistic modelling
+      - experimental design
+      - uncertainty
+  industrial_research:
+    weight: 12
+    cap: 5
+    keywords:
+      - industrial research
+      - applied research
+      - research and development
+      - r&d
+      - modelling
+      - simulation
+      - optimization
+      - decision science
+      - operations research
 
 finance_keywords:
   - mathematical finance
@@ -215,7 +279,6 @@ locations:
     - Genève
     - Basel
     - Lausanne
-  secondary:
     - Paris
     - Île-de-France
     - Ile-de-France
@@ -230,13 +293,34 @@ locations:
     - Piemonte
     - Northern Italy
     - Nord Italia
-  acceptable:
+  secondary:
     - London
     - UK
     - United Kingdom
     - Europe
     - European
+    - Germany
+    - Berlin
+    - Munich
+    - München
+    - Aachen
+    - Netherlands
+    - Amsterdam
+    - Austria
+    - Vienna
+    - Wien
+  acceptable:
     - Remote
+    - Hybrid
+    - Spain
+    - Barcelona
+    - Madrid
+    - Belgium
+    - Brussels
+    - Denmark
+    - Copenhagen
+    - Sweden
+    - Stockholm
   avoid:
     - New York
     - NY
@@ -286,10 +370,11 @@ seniority:
     - research engineer
     - staff scientist
     - principal scientist
-  avoid:
+    - research associate
+    - research fellow
     - postdoc
     - postdoctoral
-    - post-doctoral
+  avoid:
     - internship
     - intern
     - graduate
@@ -303,9 +388,6 @@ seniority:
     - 15+ years
 
 negative_keywords:
-  - postdoc
-  - postdoctoral
-  - post-doctoral
   - internship
   - intern
   - graduate programme
@@ -335,8 +417,8 @@ score_weights:
   title_weak: 4
   description_finance: 14
   description_ml: 13
-  location_core: 45
-  location_secondary: 22
+  location_core: 50
+  location_secondary: 18
   location_acceptable: 8
   location_preferred: 18
   location_avoid: -35
