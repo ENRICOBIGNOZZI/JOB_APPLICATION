@@ -3,11 +3,10 @@ from __future__ import annotations
 from html.parser import HTMLParser
 from urllib.parse import urljoin
 
-from job_agent.http import get_json
+import requests
+
 from job_agent.models import Job
 from job_agent.text import contains_any, normalize_ws
-
-import requests
 
 
 class LinkParser(HTMLParser):
