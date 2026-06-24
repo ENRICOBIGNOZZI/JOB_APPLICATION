@@ -10,7 +10,7 @@ from rich.table import Table
 
 from job_agent.applications.prepare import prepare_application
 from job_agent.apply.autofill import autofill_application
-from job_agent.config import load_profile, load_targets
+from job_agent.config import load_profile, load_targets, load_yaml
 from job_agent.db import (
     connect,
     export_jobs_csv,
@@ -23,6 +23,8 @@ from job_agent.db import (
 from job_agent.matching.domain import domain_scores, primary_domain
 from job_agent.matching.score_job import rescore_jobs, score_breakdown, score_job
 from job_agent.models import Job
+from job_agent.sources.greenhouse import fetch_greenhouse_jobs
+from job_agent.sources.lever import fetch_lever_jobs
 from job_agent.sources.page_crawler import crawl_source_pages
 from job_agent.sources.page_sources import load_source_pages_csv
 from job_agent.sources.registry import SOURCE_FETCHERS
@@ -47,6 +49,23 @@ def _job_from_row(row) -> Job:
         score=row["score"],
         status=row["status"],
     )
+
+
+def _table_rows(rows, title: str) -> None:
+    table = Table(title=title)
+    for col in ["id", "score", "source", "company", "title", "location", "url"]:
+        table.add_column(col)
+    for row in rows:
+        table.add_row(
+            str(row["id"]),
+            f"{row['score']:.2f}" if row["score"] is not None else "",
+            row["source"][:12],
+            row["company"][:18],
+            row["title"][:52],
+            row["location"][:26],
+            row["url"][:42],
+        )
+    console.print(table)
 
 
 @main.command("init")
@@ -77,6 +96,61 @@ def search(db: str, targets: str) -> None:
     conn = connect(db)
     n = upsert_jobs(conn, scored)
     console.print(f"Saved/updated {n} jobs in {db}")
+
+
+@main.command("ats-search")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--targets", default="configs/targets.yaml", show_default=True)
+@click.option("--boards", default="configs/direct_boards.yaml", show_default=True)
+@click.option("--min-score", default=55.0, show_default=True)
+def ats_search(db: str, targets: str, boards: str, min_score: float) -> None:
+    target_cfg = load_targets(targets)
+    boards_cfg = load_yaml(boards)
+    jobs: list[Job] = []
+
+    for board in boards_cfg.get("greenhouse", []) or []:
+        try:
+            found = fetch_greenhouse_jobs(str(board))
+            jobs.extend(found)
+            console.print(f"[green]greenhouse[/green] {board}: {len(found)} jobs")
+        except Exception as exc:  # noqa: BLE001
+            console.print(f"[yellow]greenhouse failed for {board}: {exc}[/yellow]")
+
+    for company in boards_cfg.get("lever", []) or []:
+        try:
+            found = fetch_lever_jobs(str(company))
+            jobs.extend(found)
+            console.print(f"[green]lever[/green] {company}: {len(found)} jobs")
+        except Exception as exc:  # noqa: BLE001
+            console.print(f"[yellow]lever failed for {company}: {exc}[/yellow]")
+
+    scored = []
+    for job in jobs:
+        if not job.url or not job.title:
+            continue
+        candidate = job.with_score(score_job(job, target_cfg))
+        if candidate.score is not None and candidate.score >= min_score:
+            scored.append(candidate)
+
+    conn = connect(db)
+    n = upsert_jobs(conn, scored)
+    console.print(f"Saved/updated {n} ATS jobs in {db}")
+    rows = list_jobs(conn, min_score=min_score, limit=25)
+    _table_rows(rows, "ATS-ready jobs")
+
+
+@main.command("ats-ready")
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--min-score", default=55.0, show_default=True)
+@click.option("--limit", default=25, show_default=True)
+def ats_ready(db: str, min_score: float, limit: int) -> None:
+    conn = connect(db)
+    rows = [
+        row
+        for row in list_jobs(conn, min_score=min_score, limit=limit * 3)
+        if row["source"] in {"greenhouse", "lever"}
+    ][:limit]
+    _table_rows(rows, "ATS-ready jobs")
 
 
 @main.command("crawl-pages")
@@ -305,6 +379,7 @@ def doctor(profile: str) -> None:
         "configs/profile.yaml": Path(profile).exists(),
         "configs/source_pages.csv": Path("configs/source_pages.csv").exists(),
         "configs/autofill_profile.yaml": Path("configs/autofill_profile.yaml").exists(),
+        "configs/direct_boards.yaml": Path("configs/direct_boards.yaml").exists(),
         "package src/job_agent": Path("src/job_agent").exists(),
         f"local CV PDF: {cv_path}": cv_path.exists(),
     }
