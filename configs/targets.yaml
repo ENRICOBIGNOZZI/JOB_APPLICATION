@@ -200,14 +200,65 @@ ml_keywords:
   - pytorch
 
 locations:
-  preferred:
+  core:
     - Switzerland
+    - Swiss
     - Ticino
     - Ticini
     - Lugano
     - Bellinzona
     - Locarno
     - Mendrisio
+    - Zurich
+    - Zürich
+    - Geneva
+    - Genève
+    - Basel
+    - Lausanne
+  secondary:
+    - Paris
+    - Île-de-France
+    - Ile-de-France
+    - France
+    - Milan
+    - Milano
+    - Turin
+    - Torino
+    - Lombardy
+    - Lombardia
+    - Piedmont
+    - Piemonte
+    - Northern Italy
+    - Nord Italia
+  acceptable:
+    - London
+    - UK
+    - United Kingdom
+    - Europe
+    - European
+    - Remote
+  avoid:
+    - New York
+    - NY
+    - Chicago
+    - California
+    - Mountain View
+    - San Francisco
+    - Boston
+    - Miami
+    - United States
+    - USA
+    - US
+    - Dubai
+    - Hong Kong
+    - Singapore
+    - Taiwan
+    - Tokyo
+    - India
+  preferred:
+    - Switzerland
+    - Ticino
+    - Lugano
     - Zurich
     - Zürich
     - Geneva
@@ -221,14 +272,7 @@ locations:
     - Milano
     - Turin
     - Torino
-    - Lombardy
-    - Lombardia
-    - Piedmont
-    - Piemonte
     - Northern Italy
-    - Nord Italia
-    - Europe
-    - European
     - London
   remote_ok: true
 
@@ -291,7 +335,12 @@ score_weights:
   title_weak: 4
   description_finance: 14
   description_ml: 13
-  location_preferred: 20
+  location_core: 45
+  location_secondary: 22
+  location_acceptable: 8
+  location_preferred: 18
+  location_avoid: -35
+  location_mixed_global: -20
   remote: 8
   seniority_prefer: 10
   seniority_avoid: -25
