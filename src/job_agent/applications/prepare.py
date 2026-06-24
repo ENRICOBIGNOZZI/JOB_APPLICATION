@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 
 from job_agent.documents.answers import render_answers
+from job_agent.documents.contact_message import render_contact_message
 from job_agent.documents.cover_letter import render_cover_letter
 from job_agent.matching.domain import domain_scores, fit_reasons, primary_domain, risk_flags
 from job_agent.matching.score_job import score_breakdown
@@ -99,6 +100,7 @@ def prepare_application(
     )
     (folder / "fit_review.md").write_text(_render_fit_review(job, targets), encoding="utf-8")
     (folder / "cover_letter.md").write_text(render_cover_letter(job, profile), encoding="utf-8")
+    (folder / "contact_message.txt").write_text(render_contact_message(job, profile), encoding="utf-8")
     (folder / "answers.md").write_text(render_answers(profile), encoding="utf-8")
     (folder / "application_notes.md").write_text(
         f"# Application notes\n\n"
@@ -118,6 +120,7 @@ def prepare_application(
         "# Submission checklist\n\n"
         "- [ ] CV attached and correct version selected\n"
         "- [ ] Fit review checked\n"
+        "- [ ] Contact message reviewed if used\n"
         "- [ ] Cover letter reviewed and made specific\n"
         "- [ ] Standard answers reviewed\n"
         "- [ ] Work authorization answer checked\n"
