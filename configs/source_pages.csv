@@ -1,11 +1,11 @@
-organization,category,region,url,include_terms
-ETH Zurich,university_jobs,Zurich Switzerland Lugano,https://jobs.ethz.ch/,postdoc|researcher|optimization|numerical|scientific computing|machine learning|CSCS|Lugano
-EPFL,university_jobs,Lausanne Switzerland,https://www.epfl.ch/about/working/job-opportunities/,postdoc|researcher|scientific computing|numerical|machine learning|optimization|control
-Inria,research_institute_jobs,France Paris Palaiseau Saclay,https://jobs.inria.fr/public/classic/en/offres,postdoctoral|researcher|numerical|optimization|control|kernel|mean-field|multi-agent|Paris|Saclay
-USI,university_jobs,Lugano Ticino,https://www.usi.ch/en/feeds/2528,postdoc|researcher|scientific|computing|mathematics|finance|machine learning
-CSCS,scientific_computing,Lugano Ticino,https://www.cscs.ch/about/careers/,scientific computing|HPC|research engineer|numerical|simulation|software engineer
-CNRS,research_institute_jobs,France Paris,https://emploi.cnrs.fr/Offres.aspx,postdoc|researcher|numerical|optimization|scientific computing|machine learning|applied mathematics
-CEA,research_institute_jobs,France Paris-Saclay,https://www.cea.fr/english/Pages/careers/jobs.aspx,numerical|optimization|machine learning|scientific computing|applied mathematics|postdoc|researcher
-Google Careers,ai_research,Zurich Paris London Europe,https://www.google.com/about/careers/applications/jobs/results/,research scientist|applied scientist|machine learning|optimization|numerical|Zurich|Paris
-Google DeepMind,ai_research,Zurich Paris London Europe,https://deepmind.google/careers/,research scientist|research engineer|machine learning|multi-agent|reinforcement learning|optimization
-IBM Research Zurich,industrial_research,Zurich Switzerland,https://www.ibm.com/careers/search,research scientist|AI|optimization|Zurich|Switzerland
+organization,category,region,url,include_terms,exclude_terms
+ETH Zurich,university_jobs,Zurich Switzerland Lugano,https://jobs.ethz.ch/,researcher|research scientist|optimization|numerical|scientific computing|machine learning|CSCS|Lugano,postdoc|postdoctoral|post-doctoral
+EPFL,university_jobs,Lausanne Switzerland,https://www.epfl.ch/about/working/job-opportunities/,researcher|research scientist|scientific computing|numerical|machine learning|optimization|control,postdoc|postdoctoral|post-doctoral
+Inria,research_institute_jobs,France Paris Palaiseau Saclay,https://jobs.inria.fr/public/classic/en/offres,researcher|research scientist|research engineer|numerical|optimization|control|kernel|mean-field|multi-agent|Paris|Saclay,postdoc|postdoctoral|post-doctoral
+USI,university_jobs,Lugano Ticino,https://www.usi.ch/en/feeds/2528,researcher|scientific|computing|mathematics|finance|machine learning,postdoc|postdoctoral|post-doctoral
+CSCS,scientific_computing,Lugano Ticino,https://www.cscs.ch/about/careers/,scientific computing|HPC|research engineer|numerical|simulation|software engineer,postdoc|postdoctoral|post-doctoral
+CNRS,research_institute_jobs,France Paris,https://emploi.cnrs.fr/Offres.aspx,researcher|numerical|optimization|scientific computing|machine learning|applied mathematics,postdoc|postdoctoral|post-doctoral
+CEA,research_institute_jobs,France Paris-Saclay,https://www.cea.fr/english/Pages/careers/jobs.aspx,numerical|optimization|machine learning|scientific computing|applied mathematics|researcher,postdoc|postdoctoral|post-doctoral
+Google Careers,ai_research,Zurich Paris London Europe,https://www.google.com/about/careers/applications/jobs/results/,research scientist|applied scientist|machine learning|optimization|numerical|Zurich|Paris,postdoc|postdoctoral|post-doctoral
+Google DeepMind,ai_research,Zurich Paris London Europe,https://deepmind.google/careers/,research scientist|research engineer|machine learning|multi-agent|reinforcement learning|optimization,postdoc|postdoctoral|post-doctoral
+IBM Research Zurich,industrial_research,Zurich Switzerland,https://www.ibm.com/careers/search,research scientist|AI|optimization|Zurich|Switzerland,postdoc|postdoctoral|post-doctoral
