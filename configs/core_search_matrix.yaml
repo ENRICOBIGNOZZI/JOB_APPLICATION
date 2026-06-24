@@ -1,0 +1,141 @@
+regions:
+  ticino:
+    label: Ticino Switzerland
+    core: true
+  lugano:
+    label: Lugano Switzerland
+    core: true
+  zurich:
+    label: Zurich Switzerland
+    core: true
+  basel:
+    label: Basel Switzerland
+    core: true
+  geneva:
+    label: Geneva Switzerland
+    core: true
+  lausanne:
+    label: Lausanne Switzerland
+    core: true
+  switzerland:
+    label: Switzerland
+    core: true
+  paris:
+    label: Paris France
+    core: true
+  france:
+    label: France
+    core: true
+  milan:
+    label: Milan Italy
+    core: true
+  turin:
+    label: Turin Italy
+    core: true
+  northern_italy:
+    label: Northern Italy
+    core: true
+
+keywords:
+  # Applied math / scientific computing
+  - research scientist
+  - applied scientist
+  - postdoc applied mathematics
+  - postdoctoral researcher mathematics
+  - research associate mathematics
+  - scientific computing
+  - computational scientist
+  - numerical analyst
+  - numerical methods
+  - numerical simulation
+  - applied mathematics
+  - mathematical modelling
+  - computational mathematics
+  - high performance computing
+  - HPC scientist
+  - simulation scientist
+  - modelling scientist
+  - digital twin scientist
+  - operations research scientist
+  # Optimization / control / multi-agent
+  - optimization scientist
+  - optimization researcher
+  - optimal control
+  - model predictive control
+  - control systems researcher
+  - robust control
+  - stochastic optimization
+  - decision scientist
+  - multi-agent systems
+  - mean-field models
+  - interacting particle systems
+  - dynamical systems
+  # ML / data / statistics
+  - machine learning researcher
+  - machine learning scientist
+  - AI researcher
+  - data scientist
+  - research data scientist
+  - statistical learning
+  - statistician
+  - biostatistician
+  - uncertainty quantification
+  - probabilistic modelling
+  - Bayesian statistics
+  - kernel methods
+  - surrogate modelling
+  # Pharma / biology / medicine
+  - computational biology
+  - bioinformatics scientist
+  - systems biology
+  - computational medicine
+  - computational pharmacology
+  - pharmacometrics
+  - drug discovery data scientist
+  - pharma data science
+  - biomedical data scientist
+  - genomics data scientist
+  - single cell data scientist
+  - omics data scientist
+  - epidemiology modeller
+  # Finance / quant
+  - quantitative researcher
+  - quant researcher
+  - mathematical finance
+  - risk modeller
+  - portfolio researcher
+  - stochastic modelling finance
+  - option pricing
+  # Industrial research / R&D
+  - industrial research scientist
+  - R&D scientist modelling
+  - research engineer simulation
+  - research engineer machine learning
+  - scientific software engineer
+  - research software engineer
+
+portals:
+  linkedin:
+    enabled: true
+    url_template: "https://www.linkedin.com/jobs/search/?keywords={query}&location={location}"
+  jobs_ch:
+    enabled: true
+    url_template: "https://www.jobs.ch/en/vacancies/?term={query}&location={location}"
+  jobup:
+    enabled: true
+    url_template: "https://www.jobup.ch/en/jobs/?term={query}&location={location}"
+  indeed:
+    enabled: true
+    url_template: "https://www.indeed.com/jobs?q={query}&l={location}"
+  euraxess:
+    enabled: true
+    url_template: "https://euraxess.ec.europa.eu/jobs/search?keywords={query}&f%5B0%5D=country%3A{location}"
+  academicpositions:
+    enabled: true
+    url_template: "https://academicpositions.com/find-jobs?search={query}&location={location}"
+  naturecareers:
+    enabled: true
+    url_template: "https://www.nature.com/naturecareers/jobs/search/?Keywords={query}&LocationId={location}"
+  jobs_ac_uk:
+    enabled: true
+    url_template: "https://www.jobs.ac.uk/search/?keywords={query}&location={location}"
