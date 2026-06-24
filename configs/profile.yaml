@@ -6,13 +6,36 @@ linkedin: ""
 github: "https://github.com/ENRICOBIGNOZZI"
 website: ""
 
-headline: "PhD-level quantitative researcher with background in econometrics, statistics, machine learning, and financial modelling."
+headline: "Quantitative researcher with theoretical physics, econometrics/statistics, machine learning, numerical modelling, and finance background."
+
+target_positioning:
+  primary:
+    - quant researcher
+    - quantitative trader
+    - portfolio/research analyst
+    - machine learning researcher
+    - research scientist
+    - scientific computing / numerical analysis roles
+  secondary:
+    - optimization/control researcher
+    - large-scale multi-agent systems researcher
+    - computational science roles
+    - life-sciences quantitative research roles
+    - commodities / systematic finance roles
+  preferred_regions:
+    - Paris / Île-de-France
+    - Ticino / Lugano
+    - Zurich / Zürich
+    - Northern Italy / Milan / Turin
+    - Switzerland broadly
 
 core_profile:
   - Theoretical physics plus econometrics/statistics background.
   - Quantitative finance, portfolio construction, statistical learning, and time-series modelling.
-  - Python research engineering, backtesting, feature engineering, and model validation.
-  - Interest in quant research, trading, portfolio management, commodities, and machine learning roles.
+  - Python research engineering, backtesting, feature engineering, diagnostics, and model validation.
+  - Numerical analysis, optimization, simulation, and scientific computing orientation.
+  - Interest in large-scale AI systems, multi-agent systems, control, and decision systems.
+  - Open to quant finance, scientific research, ML research, computational science, and life-sciences quantitative roles.
 
 cv_path: "documents/CV.pdf"
 cover_letter_style: "short, specific, technical, not generic"
@@ -21,4 +44,4 @@ standard_answers:
   work_authorization: "To be completed manually."
   notice_period: "To be completed manually."
   salary_expectation: "To be completed manually."
-  relocation: "Open to Switzerland, London, Paris, and selected US roles."
+  relocation: "Open to Paris, Ticino, Zurich, Northern Italy, Switzerland broadly, London, and selected US roles."
