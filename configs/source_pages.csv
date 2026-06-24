@@ -2,3 +2,7 @@ organization,category,region,url,include_terms
 ETH Zurich,university_jobs,Zurich Switzerland Lugano,https://jobs.ethz.ch/,postdoc|researcher|optimization|numerical|scientific computing|machine learning|CSCS|Lugano
 EPFL,university_jobs,Lausanne Switzerland,https://www.epfl.ch/about/working/job-opportunities/,postdoc|researcher|scientific computing|numerical|machine learning|optimization|control
 Inria,research_institute_jobs,France Paris Palaiseau Saclay,https://jobs.inria.fr/public/classic/en/offres,postdoctoral|researcher|numerical|optimization|control|kernel|mean-field|multi-agent|Paris|Saclay
+USI,university_jobs,Lugano Ticino,https://www.usi.ch/en/feeds/2528,postdoc|researcher|scientific|computing|mathematics|finance|machine learning
+CSCS,scientific_computing,Lugano Ticino,https://www.cscs.ch/about/careers/,scientific computing|HPC|research engineer|numerical|simulation|software engineer
+CNRS,research_institute_jobs,France Paris,https://emploi.cnrs.fr/Offres.aspx,postdoc|researcher|numerical|optimization|scientific computing|machine learning|applied mathematics
+CEA,research_institute_jobs,France Paris-Saclay,https://www.cea.fr/english/Pages/careers/jobs.aspx,numerical|optimization|machine learning|scientific computing|applied mathematics|postdoc|researcher
