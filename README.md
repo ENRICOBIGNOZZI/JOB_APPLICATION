@@ -116,6 +116,20 @@ Optional columns:
 source,date_found,status,score
 ```
 
+A template is available at:
+
+```text
+examples/manual_jobs_template.csv
+```
+
+Example import:
+
+```bash
+job-agent import-csv examples/manual_jobs_template.csv
+job-agent rescore
+job-agent rank --min-score 40
+```
+
 ## Safety rules
 
 No LinkedIn automation. No CAPTCHA bypass. No credential handling. No blind submit. No fake answers. The system is meant to reduce mechanical work, not to spray low-quality applications.
