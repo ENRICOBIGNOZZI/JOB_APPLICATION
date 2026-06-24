@@ -122,7 +122,7 @@ def score_breakdown(job: Job, targets: dict) -> list[ScoreComponent]:
             ScoreComponent("seniority_avoid", float(weights.get("seniority_avoid", -20)), "avoid seniority term")
         )
 
-    if job.source in {"greenhouse", "lever", "csv"}:
+    if job.source in {"greenhouse", "lever", "csv", "manual"}:
         components.append(ScoreComponent("source_known", float(weights.get("source_known", 4)), job.source))
     if len(job.description) > 800:
         components.append(
