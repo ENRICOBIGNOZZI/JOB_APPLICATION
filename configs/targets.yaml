@@ -45,7 +45,6 @@ role_keywords:
     - computational mathematician
     - simulation engineer
     - modelling scientist
-    - computational scientist
     - quantitative analyst
     - trading analyst
     - risk analyst
@@ -53,8 +52,6 @@ role_keywords:
   weak:
     - analyst
     - associate
-    - internship
-    - graduate
     - fellow
     - consultant
 
@@ -237,17 +234,22 @@ locations:
 
 seniority:
   prefer:
-    - postdoc
-    - postdoctoral
     - phd
     - doctoral
     - research scientist
     - applied scientist
     - scientist
-    - fellow
-    - lecturer
-    - assistant professor
+    - research engineer
+    - staff scientist
+    - principal scientist
   avoid:
+    - postdoc
+    - postdoctoral
+    - post-doctoral
+    - internship
+    - intern
+    - graduate
+    - junior
     - senior portfolio manager
     - head of
     - director
@@ -257,6 +259,12 @@ seniority:
     - 15+ years
 
 negative_keywords:
+  - postdoc
+  - postdoctoral
+  - post-doctoral
+  - internship
+  - intern
+  - graduate programme
   - sales
   - marketing
   - hr
@@ -286,7 +294,7 @@ score_weights:
   location_preferred: 20
   remote: 8
   seniority_prefer: 10
-  seniority_avoid: -20
-  negative: -45
+  seniority_avoid: -25
+  negative: -60
   source_known: 4
   description_length: 3
