@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+*.sqlite
+*.db
+applications/
+documents/*.pdf
+ranked_jobs.csv
+.env
+.DS_Store
