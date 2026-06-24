@@ -10,6 +10,28 @@ def _as_list(value: object) -> list[str]:
     return []
 
 
+def _score_keyword_groups(full_text: str, targets: dict, weights: dict) -> float:
+    groups = targets.get("keyword_groups", {}) or {}
+    if groups:
+        total = 0.0
+        for group in groups.values():
+            if not isinstance(group, dict):
+                continue
+            keywords = _as_list(group.get("keywords"))
+            cap = int(group.get("cap", 5) or 5)
+            weight = float(group.get("weight", 10) or 10)
+            hits = count_matches(full_text, keywords)
+            total += min(hits, cap) / cap * weight
+        return total
+
+    finance_hits = count_matches(full_text, _as_list(targets.get("finance_keywords")))
+    ml_hits = count_matches(full_text, _as_list(targets.get("ml_keywords")))
+    return (
+        min(finance_hits, 6) / 6 * float(weights.get("description_finance", 16))
+        + min(ml_hits, 5) / 5 * float(weights.get("description_ml", 13))
+    )
+
+
 def score_job(job: Job, targets: dict) -> float:
     role_keywords = targets.get("role_keywords", {}) or {}
     locations = targets.get("locations", {}) or {}
@@ -33,10 +55,7 @@ def score_job(job: Job, targets: dict) -> float:
     score += min(medium_hits, 2) * float(weights.get("title_medium", 14))
     score += min(weak_hits, 2) * float(weights.get("title_weak", 5))
 
-    finance_hits = count_matches(full_text, _as_list(targets.get("finance_keywords")))
-    ml_hits = count_matches(full_text, _as_list(targets.get("ml_keywords")))
-    score += min(finance_hits, 6) / 6 * float(weights.get("description_finance", 16))
-    score += min(ml_hits, 5) / 5 * float(weights.get("description_ml", 13))
+    score += _score_keyword_groups(full_text, targets, weights)
 
     preferred_locations = _as_list(locations.get("preferred"))
     if contains_any(job.location, preferred_locations):
