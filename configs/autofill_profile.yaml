@@ -5,8 +5,9 @@ candidate:
   email: chiara.segala@usi.ch
   phone: ""
   location: Lugano, Switzerland
+  country: Switzerland
   current_company: USI - Università della Svizzera italiana
-  current_title: Postdoctoral researcher in applied mathematics
+  current_title: Researcher in applied mathematics
   linkedin: ""
   github: ""
   website: ""
@@ -20,7 +21,7 @@ answers:
   notice_period: "To be reviewed manually."
   salary_expectation: "To be reviewed manually."
   relocation: "Open to Ticino/Lugano, Zurich, Paris, Northern Italy, Switzerland broadly, and selected European research hubs."
-  cover_note: "Applied mathematics and scientific computing researcher with focus on numerical analysis, optimization/control, multi-agent and mean-field systems, kernel methods, uncertainty quantification, and mathematical finance."
+  cover_note: "This fallback text is replaced at runtime by a job-specific motivation when --candidate-profile is supplied."
 
 field_aliases:
   first_name:
@@ -46,6 +47,10 @@ field_aliases:
     - location
     - city
     - address
+  country:
+    - country
+    - country/region
+    - country of residence
   linkedin:
     - linkedin
     - linked in
@@ -59,8 +64,14 @@ field_aliases:
     - resume
     - cv
     - curriculum
+    - curriculum vitae
+  cover_letter:
+    - cover letter
+    - cover letter upload
   cover_note:
     - cover letter
     - motivation
+    - motivational letter
     - message
     - additional information
+    - why are you interested
