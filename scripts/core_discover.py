@@ -55,9 +55,11 @@ def _score_filter(jobs: list[Job], targets: dict, min_score: float, region_mode:
     for job in jobs:
         if not job.url or not job.title:
             continue
-        if not _region_ok(job, targets, region_mode):
-            continue
         candidate = job.with_score(score_job(job, targets))
+        if not _region_ok(job, targets, region_mode):
+            # Keep non-core jobs only when they are very strong. They will rank lower via geography penalties.
+            if region_mode != "all" and (candidate.score or -9999) < 35:
+                continue
         if candidate.score is not None and candidate.score >= min_score:
             scored.append(candidate)
     return scored
@@ -125,9 +127,9 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=150)
     parser.add_argument(
         "--region-mode",
-        default="core",
+        default="core-secondary-acceptable",
         choices=["core", "core-secondary", "core-secondary-acceptable", "all"],
-        help="Hard region filter before saving. Use core for Switzerland/Paris/France/Northern Italy first.",
+        help="Soft region filter before saving. Ranking still applies geographic penalties/bonuses.",
     )
     parser.add_argument("--no-ats", action="store_true")
     parser.add_argument("--no-pages", action="store_true")
