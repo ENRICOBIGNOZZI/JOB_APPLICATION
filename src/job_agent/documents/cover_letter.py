@@ -1,8 +1,14 @@
 from __future__ import annotations
 
 
-def _bullet_list(items: list[str], limit: int = 5) -> str:
-    return "\n".join(f"- {item}" for item in items[:limit])
+def _format_item(item: object) -> str:
+    if isinstance(item, dict):
+        return "; ".join(f"{key}: {value}" for key, value in item.items())
+    return str(item)
+
+
+def _bullet_list(items: list[object], limit: int = 5) -> str:
+    return "\n".join(f"- {_format_item(item)}" for item in items[:limit])
 
 
 def _domain_focus(job: dict) -> str:
@@ -41,7 +47,7 @@ Relevant profile points:
 
 Research themes to emphasize:
 
-- {', '.join(interests[:8])}
+- {', '.join(map(str, interests[:8]))}
 
 Selected projects:
 
