@@ -14,44 +14,39 @@ companies:
 
 role_keywords:
   strong:
-    - quant researcher
-    - quantitative researcher
-    - quant trader
-    - quantitative trader
-    - portfolio manager
-    - systematic trader
-    - alpha researcher
-    - researcher
     - research scientist
     - applied scientist
     - computational scientist
-    - data scientist
-    - machine learning researcher
-    - ml researcher
-    - scientist
-    - mathematical researcher
     - numerical analyst
+    - scientific computing researcher
+    - mathematical modeller
     - optimization scientist
     - control scientist
+    - optimal control researcher
+    - model predictive control researcher
     - multi-agent systems researcher
-    - commodities trader
-    - commodity trader
+    - mean-field researcher
+    - kernel methods researcher
+    - uncertainty quantification researcher
+    - quantitative researcher
+    - quant researcher
+    - mathematical finance researcher
+    - machine learning researcher
+    - ml researcher
   medium:
     - research engineer
     - scientific software engineer
-    - computational biologist
-    - bioinformatics scientist
-    - pharma scientist
-    - modelling scientist
-    - mathematical modeller
-    - optimization engineer
     - numerical software engineer
+    - optimization engineer
     - control engineer
-    - robotics researcher
     - ai researcher
     - machine learning engineer
-    - software engineer
-    - python developer
+    - data scientist
+    - computational mathematician
+    - simulation engineer
+    - modelling scientist
+    - computational scientist
+    - quantitative analyst
     - trading analyst
     - risk analyst
     - investment analyst
@@ -64,25 +59,39 @@ role_keywords:
     - consultant
 
 keyword_groups:
+  chiara_core:
+    weight: 22
+    cap: 7
+    keywords:
+      - numerical analysis
+      - optimal control
+      - model predictive control
+      - mean-field
+      - multi-agent
+      - kernel methods
+      - uncertainty quantification
+      - scientific computing
+      - robust control
+      - stochastic galerkin
+      - monte carlo
+      - sparse control
+      - turnpike control
   finance:
-    weight: 16
+    weight: 14
     cap: 6
     keywords:
-      - trading
+      - mathematical finance
+      - American option pricing
+      - option pricing
+      - optimal stopping
+      - conditional mean embeddings
+      - financial economics
       - portfolio
-      - alpha
-      - market making
-      - asset pricing
-      - statistical arbitrage
-      - systematic
-      - futures
-      - fx
-      - crypto
-      - commodities
-      - derivatives
-      - volatility
+      - quantitative research
+      - stochastic modelling
       - risk
-      - options
+      - derivatives
+      - trading
   machine_learning:
     weight: 13
     cap: 5
@@ -90,69 +99,36 @@ keyword_groups:
       - machine learning
       - deep learning
       - neural network
+      - neural networks
+      - kernel methods
+      - surrogate modelling
+      - large-scale approximation
       - reinforcement learning
-      - statistics
-      - econometrics
-      - time series
-      - forecasting
       - python
       - pytorch
       - jax
       - probabilistic modelling
-  science_biology_pharma:
+  scientific_computing:
     weight: 16
     cap: 6
     keywords:
-      - pharma
-      - pharmaceutical
-      - biology
-      - computational biology
-      - bioinformatics
-      - systems biology
-      - scientist
-      - research scientist
-      - applied scientist
-      - computational scientist
-      - biotech
-      - life sciences
-      - health technology
-  math_physics:
-    weight: 15
-    cap: 6
-    keywords:
-      - mathematics
-      - mathematical
-      - physics
-      - theoretical physics
-      - applied mathematics
-      - stochastic
-      - probability
-      - statistical modelling
-      - partial differential equations
-      - pde
-      - inverse problems
-      - bayesian
-  numerical_analysis:
-    weight: 15
-    cap: 5
-    keywords:
-      - numerical analysis
-      - numerical methods
       - scientific computing
       - computational mathematics
+      - numerical methods
       - finite element
       - finite difference
-      - monte carlo
       - simulation
       - high performance computing
       - hpc
       - numerical linear algebra
+      - computational science
   optimization_control:
-    weight: 15
-    cap: 6
+    weight: 17
+    cap: 7
     keywords:
       - optimization
       - optimisation
+      - numerical optimization
       - convex optimization
       - stochastic optimization
       - optimal control
@@ -160,50 +136,69 @@ keyword_groups:
       - control systems
       - model predictive control
       - mpc
-      - operations research
+      - robust control
+      - sparse control
+      - turnpike control
       - decision systems
   multi_agent_systems:
-    weight: 14
-    cap: 5
+    weight: 17
+    cap: 6
     keywords:
       - multi-agent
       - multi agent
-      - agentic systems
-      - large scale systems
-      - large-scale systems
+      - mean-field
+      - mean field
+      - interacting particle systems
+      - collective dynamics
+      - opinion dynamics
+      - crowd dynamics
+      - multiscale models
       - distributed systems
       - autonomous agents
-      - ai agents
-      - reinforcement learning
       - coordination
+  math_physics:
+    weight: 14
+    cap: 6
+    keywords:
+      - mathematics
+      - applied mathematics
+      - physics
+      - stochastic
+      - probability
+      - statistical modelling
+      - partial differential equations
+      - pde
+      - inverse problems
+      - bayesian
+  computational_life_sciences:
+    weight: 8
+    cap: 5
+    keywords:
+      - computational biology
+      - bioinformatics
+      - systems biology
+      - life sciences
+      - computational modelling
+      - mathematical modelling
+      - quantitative modelling
 
 finance_keywords:
-  - trading
+  - mathematical finance
+  - American option pricing
+  - option pricing
+  - optimal stopping
+  - conditional mean embeddings
   - portfolio
-  - alpha
-  - market making
-  - asset pricing
-  - statistical arbitrage
-  - systematic
-  - futures
-  - fx
-  - crypto
-  - commodities
   - derivatives
-  - volatility
   - risk
-  - options
+  - trading
 
 ml_keywords:
   - machine learning
-  - deep learning
-  - neural network
-  - reinforcement learning
-  - statistics
-  - econometrics
-  - time series
-  - forecasting
-  - optimization
+  - neural networks
+  - kernel methods
+  - large-scale approximation
+  - surrogate modelling
   - python
   - pytorch
 
@@ -235,24 +230,23 @@ locations:
     - Piemonte
     - Northern Italy
     - Nord Italia
+    - Europe
+    - European
     - London
-    - New York
-    - Chicago
-    - United States
-    - US
   remote_ok: true
 
 seniority:
   prefer:
-    - intern
-    - internship
-    - graduate
-    - junior
-    - associate
-    - phd
-    - doctoral
     - postdoc
     - postdoctoral
+    - phd
+    - doctoral
+    - research scientist
+    - applied scientist
+    - scientist
+    - fellow
+    - lecturer
+    - assistant professor
   avoid:
     - senior portfolio manager
     - head of
@@ -276,16 +270,22 @@ negative_keywords:
   - ios
   - android
   - java developer
+  - experimental lab
+  - bench lab
+  - wet lab
+  - regulatory affairs
+  - quality assurance
+  - product manager
 
 score_weights:
-  title_strong: 30
+  title_strong: 32
   title_medium: 14
-  title_weak: 5
-  description_finance: 16
+  title_weak: 4
+  description_finance: 14
   description_ml: 13
-  location_preferred: 18
+  location_preferred: 20
   remote: 8
-  seniority_prefer: 8
+  seniority_prefer: 10
   seniority_avoid: -20
   negative: -45
   source_known: 4
