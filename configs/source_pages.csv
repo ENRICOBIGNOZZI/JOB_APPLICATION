@@ -6,3 +6,6 @@ USI,university_jobs,Lugano Ticino,https://www.usi.ch/en/feeds/2528,postdoc|resea
 CSCS,scientific_computing,Lugano Ticino,https://www.cscs.ch/about/careers/,scientific computing|HPC|research engineer|numerical|simulation|software engineer
 CNRS,research_institute_jobs,France Paris,https://emploi.cnrs.fr/Offres.aspx,postdoc|researcher|numerical|optimization|scientific computing|machine learning|applied mathematics
 CEA,research_institute_jobs,France Paris-Saclay,https://www.cea.fr/english/Pages/careers/jobs.aspx,numerical|optimization|machine learning|scientific computing|applied mathematics|postdoc|researcher
+Google Careers,ai_research,Zurich Paris London Europe,https://www.google.com/about/careers/applications/jobs/results/,research scientist|applied scientist|machine learning|optimization|numerical|Zurich|Paris
+Google DeepMind,ai_research,Zurich Paris London Europe,https://deepmind.google/careers/,research scientist|research engineer|machine learning|multi-agent|reinforcement learning|optimization
+IBM Research Zurich,industrial_research,Zurich Switzerland,https://www.ibm.com/careers/search,research scientist|AI|optimization|Zurich|Switzerland
