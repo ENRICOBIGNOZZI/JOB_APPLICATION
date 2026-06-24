@@ -1,12 +1,54 @@
 from __future__ import annotations
 
 from html.parser import HTMLParser
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 
 from job_agent.models import Job
 from job_agent.text import contains_any, normalize_ws
+
+NAV_OR_CONTENT_TERMS = {
+    "skip to main content",
+    "researchers",
+    "research collaborations",
+    "pipeline",
+    "technology platforms",
+    "science",
+    "contact",
+    "about",
+    "news",
+    "events",
+    "students",
+    "student",
+    "general certification",
+    "entry level",
+    "mid-level",
+    "collaborations",
+    "animal research",
+    "visit the researchers",
+}
+
+JOB_SIGNAL_TERMS = (
+    "job",
+    "career",
+    "vacanc",
+    "position",
+    "opening",
+    "postdoc",
+    "postdoctoral",
+    "research scientist",
+    "scientist",
+    "researcher",
+    "research engineer",
+    "engineer",
+    "data scientist",
+    "software engineer",
+    "scientific collaborator",
+    "fellowship",
+    "lecturer",
+    "professor",
+)
 
 
 class LinkParser(HTMLParser):
@@ -60,6 +102,23 @@ def _keywords_from_targets(targets: dict) -> list[str]:
     return sorted(set(keywords), key=len, reverse=True)
 
 
+def _looks_like_job_link(title: str, href: str) -> bool:
+    title_l = normalize_ws(title).lower()
+    href_l = href.lower()
+    if len(title_l) < 8:
+        return False
+    if title_l in NAV_OR_CONTENT_TERMS:
+        return False
+    if any(title_l == term or title_l.startswith(term + " ") for term in NAV_OR_CONTENT_TERMS):
+        return False
+    if "mailto:" in href_l or href_l.startswith("#"):
+        return False
+    parsed = urlparse(href_l)
+    path = parsed.path.lower()
+    combined = f"{title_l} {path} {parsed.query.lower()}"
+    return any(term in combined for term in JOB_SIGNAL_TERMS)
+
+
 def crawl_source_pages(config: dict, targets: dict) -> list[Job]:
     pages = config.get("pages", []) or []
     target_keywords = _keywords_from_targets(targets)
@@ -86,6 +145,8 @@ def crawl_source_pages(config: dict, targets: dict) -> list[Job]:
         parser.feed(html)
         for title, href in parser.links:
             text = f"{title} {href}"
+            if not _looks_like_job_link(title, href):
+                continue
             if not contains_any(text, include_terms):
                 continue
             if exclude_terms and contains_any(text, exclude_terms):
