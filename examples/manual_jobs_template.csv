@@ -1,0 +1,4 @@
+company,title,location,url,description,source
+Example Quant Fund,Quant Researcher,Zurich,https://example.com/job-1,"Alpha research, portfolio construction, statistics, Python, time series.",manual
+Example Science Company,Research Scientist Scientific Computing,Paris,https://example.com/job-2,"Scientific computing, numerical analysis, simulation, optimization, Python.",manual
+Example Industrial AI Company,Optimization and Control Engineer,Ticino,https://example.com/job-3,"Optimization, control systems, model predictive control, distributed systems.",manual
