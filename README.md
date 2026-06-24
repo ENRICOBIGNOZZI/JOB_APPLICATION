@@ -6,24 +6,28 @@ The design is deliberate: this is **not** an auto-submit bot. It searches suppor
 
 ## Current default profile
 
-The default profile in `configs/profile.yaml` is now tuned for **Chiara Segala**: applied mathematics, numerical analysis, optimization/control, multi-agent and mean-field systems, kernel methods, uncertainty quantification, scientific computing, machine learning methods, and mathematical finance.
+The default profile in `configs/profile.yaml` is tuned for **Chiara Segala**: applied mathematics, numerical analysis, optimization/control, multi-agent and mean-field systems, kernel methods, uncertainty quantification, scientific computing, machine learning methods, and mathematical finance.
 
 See also:
 
 ```text
 docs/chiara_application_strategy.md
+docs/source_sourcing_playbook.md
+docs/local_runtime_setup.md
 ```
 
 ## What it does
 
 - Searches Greenhouse and Lever public job boards from configured companies.
+- Crawls curated source pages from `configs/source_pages.csv`.
 - Imports manual jobs from CSV for custom portals, LinkedIn exports, or jobs found by hand.
 - Scores jobs using role match, location, seniority, thematic relevance, and negative filters.
-- Supports finance/quant, ML, life-sciences research, scientist/research, math/physics, numerical analysis, optimization/control, and multi-agent systems targets.
+- Groups ranked jobs by primary domain with `job-agent domains`.
 - Explains score components with `job-agent explain`.
 - Stores jobs and status history in SQLite.
 - Generates one folder per application with:
   - `job_description.md`
+  - `fit_review.md`
   - `cover_letter.md`
   - `application_notes.md`
   - `answers.md`
@@ -60,6 +64,16 @@ source .venv/bin/activate
 pip install -e .[dev]
 ```
 
+## Local CV PDF
+
+Compile or copy the CV PDF locally to:
+
+```text
+documents/cv_chiara_segala.pdf
+```
+
+This path is ignored by git. See `docs/local_runtime_setup.md`.
+
 ## Configure
 
 Edit:
@@ -67,18 +81,21 @@ Edit:
 ```text
 configs/profile.yaml
 configs/targets.yaml
+configs/source_pages.csv
 ```
 
-`targets.yaml` controls target companies, role keywords, preferred locations, negative filters, thematic keyword groups, and score weights.
+`targets.yaml` controls role keywords, preferred locations, negative filters, thematic keyword groups, and score weights.
 
 ## Commands
 
 ```bash
 job-agent init
 job-agent search
+job-agent crawl-pages
 job-agent import-csv path/to/jobs.csv
 job-agent rescore
 job-agent rank --min-score 50
+job-agent domains
 job-agent show --job-id 1
 job-agent explain --job-id 1
 job-agent shortlist --job-id 1
@@ -93,8 +110,11 @@ job-agent doctor
 
 ```bash
 job-agent search
+job-agent crawl-pages
+job-agent import-csv examples/manual_jobs_template.csv
 job-agent rescore
 job-agent rank --min-score 55
+job-agent domains
 job-agent show --job-id 12
 job-agent explain --job-id 12
 job-agent shortlist --job-id 12
@@ -131,14 +151,6 @@ A template is available at:
 
 ```text
 examples/manual_jobs_template.csv
-```
-
-Example import:
-
-```bash
-job-agent import-csv examples/manual_jobs_template.csv
-job-agent rescore
-job-agent rank --min-score 40
 ```
 
 ## Safety rules
