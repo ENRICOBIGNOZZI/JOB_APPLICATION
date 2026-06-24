@@ -1,11 +1,37 @@
 organization,category,region,url,include_terms,exclude_terms
-ETH Zurich,university_jobs,Zurich Switzerland Lugano,https://jobs.ethz.ch/,researcher|research scientist|optimization|numerical|scientific computing|machine learning|CSCS|Lugano,postdoc|postdoctoral|post-doctoral
-EPFL,university_jobs,Lausanne Switzerland,https://www.epfl.ch/about/working/job-opportunities/,researcher|research scientist|scientific computing|numerical|machine learning|optimization|control,postdoc|postdoctoral|post-doctoral
-Inria,research_institute_jobs,France Paris Palaiseau Saclay,https://jobs.inria.fr/public/classic/en/offres,researcher|research scientist|research engineer|numerical|optimization|control|kernel|mean-field|multi-agent|Paris|Saclay,postdoc|postdoctoral|post-doctoral
-USI,university_jobs,Lugano Ticino,https://www.usi.ch/en/feeds/2528,researcher|scientific|computing|mathematics|finance|machine learning,postdoc|postdoctoral|post-doctoral
-CSCS,scientific_computing,Lugano Ticino,https://www.cscs.ch/about/careers/,scientific computing|HPC|research engineer|numerical|simulation|software engineer,postdoc|postdoctoral|post-doctoral
-CNRS,research_institute_jobs,France Paris,https://emploi.cnrs.fr/Offres.aspx,researcher|numerical|optimization|scientific computing|machine learning|applied mathematics,postdoc|postdoctoral|post-doctoral
-CEA,research_institute_jobs,France Paris-Saclay,https://www.cea.fr/english/Pages/careers/jobs.aspx,numerical|optimization|machine learning|scientific computing|applied mathematics|researcher,postdoc|postdoctoral|post-doctoral
-Google Careers,ai_research,Zurich Paris London Europe,https://www.google.com/about/careers/applications/jobs/results/,research scientist|applied scientist|machine learning|optimization|numerical|Zurich|Paris,postdoc|postdoctoral|post-doctoral
-Google DeepMind,ai_research,Zurich Paris London Europe,https://deepmind.google/careers/,research scientist|research engineer|machine learning|multi-agent|reinforcement learning|optimization,postdoc|postdoctoral|post-doctoral
-IBM Research Zurich,industrial_research,Zurich Switzerland,https://www.ibm.com/careers/search,research scientist|AI|optimization|Zurich|Switzerland,postdoc|postdoctoral|post-doctoral
+ETH Zurich,university_jobs,Zurich Switzerland Lugano,https://jobs.ethz.ch/,postdoc|postdoctoral|researcher|research scientist|applied scientist|optimization|numerical|scientific computing|machine learning|mathematics|statistics|CSCS|Lugano,
+EPFL,university_jobs,Lausanne Switzerland,https://www.epfl.ch/about/working/job-opportunities/,postdoc|postdoctoral|researcher|scientific computing|numerical|machine learning|optimization|control|mathematics|statistics|data science,
+Inria,research_institute_jobs,France Paris Palaiseau Saclay,https://jobs.inria.fr/public/classic/en/offres,postdoc|postdoctoral|researcher|research scientist|research engineer|numerical|optimization|control|kernel|mean-field|multi-agent|Paris|Saclay|machine learning,
+USI,university_jobs,Lugano Ticino,https://www.usi.ch/en/feeds/2528,postdoc|postdoctoral|researcher|scientific|computing|mathematics|finance|machine learning|statistics|data science,
+CSCS,scientific_computing,Lugano Ticino,https://www.cscs.ch/about/careers/,scientific computing|HPC|research engineer|numerical|simulation|software engineer|data|machine learning,
+CNRS,research_institute_jobs,France Paris,https://emploi.cnrs.fr/Offres.aspx,postdoc|postdoctoral|researcher|numerical|optimization|scientific computing|machine learning|applied mathematics|biology|bioinformatics,
+CEA,research_institute_jobs,France Paris-Saclay,https://www.cea.fr/english/Pages/careers/jobs.aspx,numerical|optimization|machine learning|scientific computing|applied mathematics|researcher|data science|simulation|biology,
+Google Careers,ai_research,Zurich Paris London Europe,https://www.google.com/about/careers/applications/jobs/results/,research scientist|applied scientist|machine learning|optimization|numerical|Zurich|Paris|data scientist,
+Google DeepMind,ai_research,Zurich Paris London Europe,https://deepmind.google/careers/,research scientist|research engineer|machine learning|multi-agent|reinforcement learning|optimization|biology|science,
+IBM Research Zurich,industrial_research,Zurich Switzerland,https://www.ibm.com/careers/search,research scientist|AI|optimization|Zurich|Switzerland|scientific computing|data science,
+CERN,scientific_computing,Geneva Switzerland France,https://careers.cern/alljobs,scientific computing|data science|machine learning|simulation|software|mathematics|physics|research,
+EMBL,computational_biology,Europe Germany France Italy UK Spain,https://www.embl.org/jobs/,computational biology|bioinformatics|data science|machine learning|postdoc|researcher|scientist|statistics|modelling,
+EMBL-EBI,bioinformatics,UK Europe,https://www.ebi.ac.uk/about/jobs,computational biology|bioinformatics|data science|software|machine learning|scientist|statistics,
+Swiss Institute of Bioinformatics,bioinformatics,Switzerland Lausanne Basel Zurich,https://www.sib.swiss/jobs,computational biology|bioinformatics|data science|statistics|machine learning|scientist|postdoc,
+Roche,pharma_biotech,Basel Switzerland Europe,https://careers.roche.com/global/en/search-results,computational biology|bioinformatics|data science|machine learning|modelling|statistics|scientist|research,
+Novartis,pharma_biotech,Basel Switzerland Europe,https://www.novartis.com/careers/career-search,computational biology|bioinformatics|data science|machine learning|modelling|statistics|scientist|research,
+Lonza,pharma_biotech,Basel Switzerland Europe,https://www.lonza.com/careers,computational|data science|statistics|modelling|scientist|bioinformatics|optimization,
+Syngenta,agritech_biotech,Basel Switzerland Europe,https://www.syngenta.com/careers,computational biology|data science|machine learning|statistics|modelling|scientist|optimization,
+Merck KGaA,pharma_biotech,Germany Switzerland Europe,https://www.emdgroup.com/en/careers/jobs.html,data science|computational biology|bioinformatics|machine learning|statistics|scientist|modelling,
+Sanofi,pharma_biotech,Paris France Europe,https://www.sanofi.com/en/careers/job-search,data science|computational biology|bioinformatics|machine learning|statistics|modelling|scientist,
+Bayer,pharma_biotech,Germany Europe,https://www.bayer.com/en/career/job-search,data science|computational biology|bioinformatics|machine learning|statistics|scientist|modelling,
+AstraZeneca,pharma_biotech,Europe UK Sweden,https://careers.astrazeneca.com/search-jobs,data science|computational biology|bioinformatics|machine learning|statistics|scientist|modelling,
+GSK,pharma_biotech,Europe UK,https://www.gsk.com/en-gb/careers/search-jobs/,data science|computational biology|bioinformatics|machine learning|statistics|scientist|modelling,
+BioNTech,biotech,Germany Europe,https://jobs.biontech.com/,data science|computational biology|bioinformatics|machine learning|statistics|scientist|modelling,
+Politecnico di Milano,university_jobs,Milan Italy,https://www.polimi.it/en/faculty-and-staff/work-with-us,postdoc|researcher|research fellow|applied mathematics|data science|optimization|simulation|machine learning,
+University of Milan,university_jobs,Milan Italy,https://www.unimi.it/en/university/work-us,postdoc|researcher|applied mathematics|statistics|data science|computational biology|bioinformatics,
+University of Turin,university_jobs,Turin Italy,https://en.unito.it/about-unito/job-opportunities,postdoc|researcher|applied mathematics|statistics|data science|computational biology|machine learning,
+Polytechnic University of Turin,university_jobs,Turin Italy,https://www.polito.it/en/university/work-with-us,postdoc|researcher|applied mathematics|optimization|simulation|machine learning|data science,
+CWI,research_institute,Netherlands Europe,https://www.cwi.nl/en/jobs/,postdoc|researcher|scientific computing|mathematics|optimization|machine learning|data science,
+TU Delft,university_jobs,Netherlands Europe,https://www.tudelft.nl/en/about-tu-delft/working-at-tu-delft/search-jobs,postdoc|researcher|scientific computing|mathematics|optimization|machine learning|data science,
+TU Munich,university_jobs,Germany Europe,https://portal.mytum.de/jobs,postdoc|researcher|scientific computing|mathematics|optimization|machine learning|data science|biology,
+Fraunhofer,research_institute,Germany Europe,https://www.fraunhofer.de/en/jobs-and-career/jobs.html,researcher|scientist|data science|machine learning|optimization|simulation|scientific computing,
+ABB,industrial_research,Switzerland Europe,https://careers.abb/global/en/search-results,research scientist|data scientist|optimization|control|simulation|machine learning|scientific computing,
+Siemens,industrial_research,Europe Germany Switzerland,https://jobs.siemens.com/careers,research scientist|data scientist|optimization|simulation|digital twin|machine learning|scientific computing,
+Bosch,industrial_research,Europe Germany,https://www.bosch.com/careers/job-offers/,research scientist|data scientist|optimization|simulation|machine learning|scientific computing,
+Schneider Electric,industrial_research,Europe France,https://www.se.com/ww/en/about-us/careers/job-search/,data scientist|optimization|simulation|machine learning|control|research,
