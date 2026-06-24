@@ -60,23 +60,26 @@ def _search_urls(matrix: dict, *, region: str | None, keyword: str | None, limit
 
 def _extract_cards(page, fallback_location: str) -> list[dict[str, str]]:
     data = page.evaluate(
-        """
+        r"""
         () => {
           const anchors = Array.from(document.querySelectorAll("a[href*='/jobs/view/']"));
           const rows = [];
           const seen = new Set();
+          const locationPattern = /Switzerland|Suisse|Schweiz|Zurich|Zürich|Lugano|Ticino|Basel|Geneva|Genève|Lausanne|Paris|France|Milan|Milano|Turin|Torino|Italy|Italia|Remote|Hybrid/i;
+          const badLinePattern = /Promoted|Viewed|Easy Apply|Actively reviewing|Be an early applicant|Reposted|Applicants|ago$/i;
           for (const a of anchors) {
             const href = a.href || a.getAttribute('href') || '';
             if (!href || seen.has(href)) continue;
             seen.add(href);
             const card = a.closest('li') || a.closest('[data-job-id]') || a.closest('.job-card-container') || a.closest('div');
-            const text = (card ? card.innerText : a.innerText || '').split('\n').map(x => x.trim()).filter(Boolean);
+            const raw = card ? (card.innerText || '') : (a.innerText || '');
+            const text = raw.split(/\n+/).map(x => x.trim()).filter(Boolean);
             const title = (a.innerText || text[0] || '').trim();
             let company = '';
             let location = '';
             for (const line of text) {
-              if (!company && line !== title && !line.match(/Promoted|Viewed|Easy Apply|Actively reviewing/i)) company = line;
-              else if (!location && line.match(/Switzerland|Suisse|Schweiz|Zurich|Zürich|Lugano|Ticino|Basel|Geneva|Genève|Lausanne|Paris|France|Milan|Milano|Turin|Torino|Italy|Italia|Remote|Hybrid/i)) location = line;
+              if (!company && line !== title && !badLinePattern.test(line) && !locationPattern.test(line)) company = line;
+              if (!location && locationPattern.test(line)) location = line;
             }
             if (title && href) rows.push({title, company, location, url: href, text: text.slice(0, 12).join(' | ')});
           }
@@ -87,7 +90,7 @@ def _extract_cards(page, fallback_location: str) -> list[dict[str, str]]:
     jobs: list[dict[str, str]] = []
     for item in data or []:
         title = normalize_ws(str(item.get("title", "")))
-        if not title or title.lower() in {"jobs", "show more"}:
+        if not title or title.lower() in {"jobs", "show more", "linkedin"}:
             continue
         jobs.append(
             {
@@ -158,15 +161,20 @@ def main() -> int:
         page = context.new_page()
         for idx, search in enumerate(searches, start=1):
             console.print(f"[cyan]{idx}/{len(searches)}[/cyan] LinkedIn {search['region']} | {search['keyword']}")
-            page.goto(search["url"], wait_until="domcontentloaded", timeout=60_000)
             try:
-                page.wait_for_load_state("networkidle", timeout=8_000)
-            except PlaywrightTimeoutError:
-                pass
-            for _ in range(max(args.scrolls, 0)):
-                page.mouse.wheel(0, 2500)
-                page.wait_for_timeout(1200)
-            cards = _extract_cards(page, fallback_location=search["location"])
+                page.goto(search["url"], wait_until="domcontentloaded", timeout=60_000)
+                try:
+                    page.wait_for_load_state("networkidle", timeout=8_000)
+                except PlaywrightTimeoutError:
+                    pass
+                for _ in range(max(args.scrolls, 0)):
+                    page.mouse.wheel(0, 2500)
+                    page.wait_for_timeout(1200)
+                cards = _extract_cards(page, fallback_location=search["location"])
+            except Exception as exc:  # noqa: BLE001
+                console.print(f"[yellow]skip LinkedIn search due to extraction error: {exc}[/yellow]")
+                continue
+            console.print(f"  found {len(cards)} visible job card(s)")
             for card in cards[: args.per_search]:
                 job = Job(
                     company=card["company"] or "LinkedIn company",
