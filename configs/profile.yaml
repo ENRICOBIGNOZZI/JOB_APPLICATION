@@ -1,47 +1,138 @@
-name: Enrico Bignozzi
-email: enrico@example.com
-phone: "+41 XXX XXX XXX"
+name: Chiara Segala
+email: chiara.segala@usi.ch
+phone: ""
 location: Lugano, Switzerland
 linkedin: ""
-github: "https://github.com/ENRICOBIGNOZZI"
+github: ""
 website: ""
 
-headline: "Quantitative researcher with theoretical physics, econometrics/statistics, machine learning, numerical modelling, and finance background."
+headline: "Postdoctoral researcher in applied mathematics, numerical analysis, optimal control, multi-agent/mean-field systems, kernel methods, uncertainty quantification, and mathematical finance."
 
 target_positioning:
   primary:
-    - quant researcher
-    - quantitative trader
-    - portfolio/research analyst
-    - machine learning researcher
     - research scientist
-    - scientific computing / numerical analysis roles
-  secondary:
+    - applied scientist
+    - numerical analyst
+    - scientific computing researcher
     - optimization/control researcher
-    - large-scale multi-agent systems researcher
-    - computational science roles
-    - life-sciences quantitative research roles
-    - commodities / systematic finance roles
+    - machine learning researcher with mathematical modelling focus
+    - quantitative researcher in finance or scientific computing
+  secondary:
+    - computational scientist
+    - mathematical modeller
+    - multi-agent systems researcher
+    - uncertainty quantification researcher
+    - kernel methods researcher
+    - quantitative finance researcher
+    - scientific software / research engineering roles
   preferred_regions:
-    - Paris / Île-de-France
     - Ticino / Lugano
     - Zurich / Zürich
+    - Paris / Île-de-France
     - Northern Italy / Milan / Turin
     - Switzerland broadly
+    - selected European research hubs
+
+current_position:
+  title: Postdoc
+  institution: USI - Università della Svizzera italiana
+  department: Department of Informatics and Faculty of Economics
+  group: Research group of Prof. Michael Multerer and Prof. Paul Schneider
+  start: 2024-11
+
+previous_position:
+  title: Postdoc
+  institution: RWTH Aachen University
+  institute: Institut für Geometrie und Praktische Mathematik
+  group: Research group of Prof. Michael Herty
+  period: 2022-2024
+
+education:
+  - degree: Ph.D. in Mathematics
+    institution: University of Trento
+    period: 2018-2022
+    thesis: "Robust control strategies for mean-field collective dynamics"
+    distinction: true
+  - degree: Predoc Research Grant
+    institution: University of Verona
+    period: 2017-2018
+    topic: "Geometric control of mechanical systems"
+  - degree: Master in Mathematics, Modelling/Computational Curriculum
+    institution: University of Verona
+    period: 2014-2016
+    thesis: "Implementation of Exponential Integrators in GNU Octave"
+  - degree: Bachelor in Mathematics, Economic/Financial Curriculum
+    institution: University of Verona
+    period: 2011-2013
+    thesis: "Forecasts and Statistical Analysis of Verona Import-Export"
 
 core_profile:
-  - Theoretical physics plus econometrics/statistics background.
-  - Quantitative finance, portfolio construction, statistical learning, and time-series modelling.
-  - Python research engineering, backtesting, feature engineering, diagnostics, and model validation.
-  - Numerical analysis, optimization, simulation, and scientific computing orientation.
-  - Interest in large-scale AI systems, multi-agent systems, control, and decision systems.
-  - Open to quant finance, scientific research, ML research, computational science, and life-sciences quantitative roles.
+  - Postdoctoral researcher in applied mathematics at USI, previously postdoc at RWTH Aachen.
+  - Ph.D. in Mathematics on robust control strategies for mean-field collective dynamics, defended with distinction.
+  - Research focus: numerical analysis, optimization, optimal/model-predictive/sparse/turnpike control, multi-agent systems, mean-field theory, multiscale models, and uncertainty quantification.
+  - Machine learning focus: neural networks, kernel methods, large-scale approximation, surrogate modelling, and learning methods for interacting particle systems.
+  - Mathematical finance focus: American option pricing, optimal stopping, conditional mean embeddings, and large-scale kernel methods in financial economics.
+  - Strong academic output across optimal control, mean-field models, multi-agent systems, kernel methods, traffic/mean-field games, and stochastic collective dynamics.
 
-cv_path: "documents/CV.pdf"
-cover_letter_style: "short, specific, technical, not generic"
+research_interests:
+  - numerical analysis
+  - optimization
+  - optimal control
+  - model predictive control
+  - sparse control
+  - turnpike control
+  - multi-agent systems
+  - opinion dynamics
+  - crowd dynamics
+  - mean-field theory
+  - multiscale models
+  - neural networks
+  - kernel methods
+  - large-scale approximation
+  - uncertainty quantification
+  - Monte Carlo methods
+  - stochastic Galerkin methods
+  - robust control
+  - mathematical finance
+  - American option pricing
+  - optimal stopping
+  - conditional mean embeddings
+
+selected_publications:
+  - "Low-rank kernel methods for American option pricing"
+  - "Tree-Adaptive Multiscale Kernel Lasso in Samplet Coordinates"
+  - "Sparse stabilization of mean-field agent dynamics through a three-operator splitting gradient method"
+  - "The turnpike control in stochastic multi-agent dynamics: a discrete-time approach with exponential integrators"
+  - "Sparse control in microscopic and mean-field leader-follower models"
+  - "Recent kernel methods for interacting particle systems: first numerical results"
+  - "A Game-Theoretic Framework for Generic Second-Order Traffic Flow Models Using Mean Field Games and Adversarial Inverse Reinforcement Learning"
+  - "Robust feedback stabilization of interacting multi-agent systems under uncertainty"
+
+research_projects:
+  - "SNSF 215528: Large-scale kernel methods in financial economics"
+  - "SFB 1481: Kinetic theory meets algebraic systems theory"
+  - "SPP 2298: Assessment of Deep Learning through Meanfield Theory"
+  - "GNCS-INdAM numerical approximation project"
+  - "PRIN 2017: Innovative Numerical Methods for Evolutionary PDEs and Applications"
+
+skills:
+  standard:
+    - Python
+    - Mathematica
+    - git
+  advanced:
+    - Matlab
+    - Octave
+    - LaTeX
+  languages:
+    - Italian: native
+    - English: fluent
+
+cv_path: "documents/cv_chiara_segala.pdf"
+cover_letter_style: "short, specific, mathematical, research-oriented, not generic"
 
 standard_answers:
   work_authorization: "To be completed manually."
   notice_period: "To be completed manually."
   salary_expectation: "To be completed manually."
-  relocation: "Open to Paris, Ticino, Zurich, Northern Italy, Switzerland broadly, London, and selected US roles."
+  relocation: "Open to Ticino/Lugano, Zurich, Paris, Northern Italy, Switzerland broadly, and selected European research hubs."
