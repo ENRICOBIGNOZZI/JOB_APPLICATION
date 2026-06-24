@@ -1,6 +1,6 @@
-# Direct ATS boards. Keep only boards with public Greenhouse/Lever APIs.
-# Failed or custom boards are intentionally not listed here.
+# Direct ATS boards. Some boards may be unavailable or change slug; the CLI skips failures.
 greenhouse:
+  # Quant / finance / trading
   - deepmind
   - point72
   - jumptrading
@@ -13,5 +13,35 @@ greenhouse:
   - brex
   - plaid
   - coinbase
+  # Biotech / pharma / computational biology / AI for science
+  - insitro
+  - recursion
+  - generatebiomedicines
+  - relationrx
+  - nference
+  - owkin
+  - benevolentai
+  - exscientia
+  - tempusbio
+  - verily
+  - ginkgobioworks
+  - cellarity
+  - formationbio
+  - valence-labs
+  # Scientific / industrial / robotics / simulation
+  - sandboxaq
+  - isomorphiclabs
+  - roboticsandaiinstitute
+  - appliedintuition
+  - wayve
+  - lattice
+  - andurilindustries
 
-lever: []
+lever:
+  # Some of these may be unavailable; the CLI skips failures quietly.
+  - insitro
+  - recursion
+  - owkin
+  - sandboxaq
+  - appliedintuition
+  - wayve
