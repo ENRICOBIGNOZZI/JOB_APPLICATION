@@ -54,6 +54,57 @@ def _keyword_group_components(full_text: str, targets: dict, weights: dict) -> l
     return [c for c in components if c.value]
 
 
+def _location_components(job: Job, locations: dict, weights: dict) -> list[ScoreComponent]:
+    text = job.location or ""
+    components: list[ScoreComponent] = []
+
+    core_terms = _as_list(locations.get("core"))
+    secondary_terms = _as_list(locations.get("secondary"))
+    acceptable_terms = _as_list(locations.get("acceptable"))
+    avoid_terms = _as_list(locations.get("avoid"))
+
+    if core_terms and contains_any(text, core_terms):
+        components.append(
+            ScoreComponent("location_core", float(weights.get("location_core", 45)), text)
+        )
+    elif secondary_terms and contains_any(text, secondary_terms):
+        components.append(
+            ScoreComponent("location_secondary", float(weights.get("location_secondary", 22)), text)
+        )
+    elif acceptable_terms and contains_any(text, acceptable_terms):
+        components.append(
+            ScoreComponent("location_acceptable", float(weights.get("location_acceptable", 8)), text)
+        )
+    elif contains_any(text, _as_list(locations.get("preferred"))):
+        components.append(
+            ScoreComponent("location_preferred", float(weights.get("location_preferred", 18)), text)
+        )
+
+    avoid_hits = count_matches(text, avoid_terms)
+    if avoid_hits:
+        components.append(
+            ScoreComponent(
+                "location_avoid",
+                float(weights.get("location_avoid", -35)) * avoid_hits,
+                f"{avoid_hits} avoid location hits: {text}",
+            )
+        )
+
+    if avoid_hits and (contains_any(text, core_terms) or contains_any(text, secondary_terms)):
+        components.append(
+            ScoreComponent(
+                "location_mixed_global",
+                float(weights.get("location_mixed_global", -20)),
+                text,
+            )
+        )
+
+    if locations.get("remote_ok") and "remote" in text.lower():
+        components.append(ScoreComponent("remote", float(weights.get("remote", 8)), text))
+
+    return components
+
+
 def score_breakdown(job: Job, targets: dict) -> list[ScoreComponent]:
     role_keywords = targets.get("role_keywords", {}) or {}
     locations = targets.get("locations", {}) or {}
@@ -104,14 +155,7 @@ def score_breakdown(job: Job, targets: dict) -> list[ScoreComponent]:
         )
 
     components.extend(_keyword_group_components(full_text, targets, weights))
-
-    preferred_locations = _as_list(locations.get("preferred"))
-    if contains_any(job.location, preferred_locations):
-        components.append(
-            ScoreComponent("location_preferred", float(weights.get("location_preferred", 18)), job.location)
-        )
-    if locations.get("remote_ok") and "remote" in job.location.lower():
-        components.append(ScoreComponent("remote", float(weights.get("remote", 8)), job.location))
+    components.extend(_location_components(job, locations, weights))
 
     if contains_any(full_text, _as_list(seniority.get("prefer"))):
         components.append(
