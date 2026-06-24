@@ -4,6 +4,16 @@ Semi-automated job search, ranking, and application-preparation system.
 
 The design is deliberate: this is **not** an auto-submit bot. It searches supported public job boards, scores roles, prepares application folders, and tracks status. Final review and submission stay manual.
 
+## Current default profile
+
+The default profile in `configs/profile.yaml` is now tuned for **Chiara Segala**: applied mathematics, numerical analysis, optimization/control, multi-agent and mean-field systems, kernel methods, uncertainty quantification, scientific computing, machine learning methods, and mathematical finance.
+
+See also:
+
+```text
+docs/chiara_application_strategy.md
+```
+
 ## What it does
 
 - Searches Greenhouse and Lever public job boards from configured companies.
@@ -25,12 +35,13 @@ The design is deliberate: this is **not** an auto-submit bot. It searches suppor
 
 The default configuration is tuned for:
 
-- quantitative research, trading, portfolio management, finance, commodities
-- machine learning, statistics, econometrics, time-series modelling
-- scientific research, computational science, life sciences, and research scientist roles
-- mathematics, physics, stochastic modelling, numerical analysis
-- optimization, optimal control, control systems, decision systems
-- large-scale multi-agent systems and distributed AI systems
+- research scientist / applied scientist roles
+- numerical analysis and scientific computing
+- optimization, optimal control, model predictive control, sparse/turnpike control
+- multi-agent systems, mean-field models, multiscale models, collective dynamics
+- kernel methods, large-scale approximation, surrogate modelling, machine learning methods
+- uncertainty quantification and robust control
+- mathematical finance, American option pricing, optimal stopping, conditional mean embeddings
 
 Preferred regions in the default config:
 
@@ -39,7 +50,7 @@ Preferred regions in the default config:
 - Zurich / Zürich
 - Northern Italy / Milan / Turin
 - Switzerland more broadly
-- London / selected US roles
+- selected European research hubs
 
 ## Install
 
