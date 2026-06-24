@@ -18,7 +18,8 @@ from job_agent.db import (
     update_status,
     upsert_jobs,
 )
-from job_agent.matching.score_job import rescore_jobs, score_job
+from job_agent.matching.score_job import rescore_jobs, score_breakdown, score_job
+from job_agent.models import Job
 from job_agent.sources.registry import SOURCE_FETCHERS
 
 console = Console()
@@ -113,6 +114,35 @@ def show(db: str, job_id: int) -> None:
         f"{row['description'][:3000]}"
     )
     console.print(Panel(body, title=f"Job {job_id}"))
+
+
+@main.command()
+@click.option("--db", default="jobs.sqlite", show_default=True)
+@click.option("--targets", default="configs/targets.yaml", show_default=True)
+@click.option("--job-id", required=True, type=int)
+def explain(db: str, targets: str, job_id: int) -> None:
+    cfg = load_targets(targets)
+    row = get_job(connect(db), job_id)
+    job = Job(
+        company=row["company"],
+        title=row["title"],
+        location=row["location"],
+        url=row["url"],
+        description=row["description"],
+        source=row["source"],
+        date_found=row["date_found"],
+        score=row["score"],
+        status=row["status"],
+    )
+    components = score_breakdown(job, cfg)
+    table = Table(title=f"Score breakdown: {job.company} — {job.title}")
+    table.add_column("component")
+    table.add_column("value", justify="right")
+    table.add_column("detail")
+    for component in components:
+        table.add_row(component.name, f"{component.value:.2f}", component.detail)
+    table.add_row("TOTAL", f"{sum(c.value for c in components):.2f}", "")
+    console.print(table)
 
 
 @main.command()
